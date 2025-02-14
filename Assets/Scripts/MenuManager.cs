@@ -17,7 +17,7 @@ public class MenuManager : MonoBehaviour
 
     public void OpenSettings()
     {
-
+        
     }
     
     public void OpenLevels()
