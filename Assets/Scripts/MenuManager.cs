@@ -1,29 +1,37 @@
 using UnityEngine;
-using TMPro;
 
 public class MenuManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public GameObject mainMenu;
+    public GameObject settings;
+    public GameObject levels;
 
-    // Update is called once per frame
-    void FixedUpdate()
-    {
-        
-    }
+    private GameObject[] menus;
 
-    public void OpenSettings()
+    private void Start()
     {
-        
+        ShowOnly(mainMenu);
     }
     
-    public void OpenLevels()
+    private void Awake()
     {
-
+        // Initialize the array of all menu objects
+        menus = new GameObject[] { mainMenu, settings, levels };
     }
+
+    // Method to show only one menu and hide all others
+    private void ShowOnly(GameObject menuToShow)
+    {
+        foreach (GameObject menu in menus)
+        {
+            menu.SetActive(menu == menuToShow);
+        }
+    }
+
+    // Public methods for specific menus
+    public void OpenSettings() => ShowOnly(settings);
+    public void OpenMainMenu() => ShowOnly(mainMenu);
+    public void OpenLevels() => ShowOnly(levels);
     
     public void Quit()
     {
