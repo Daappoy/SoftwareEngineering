@@ -1,0 +1,74 @@
+{
+    "name": "LevelInputSystem",
+    "maps": [
+        {
+            "name": "LevelActionMap",
+            "id": "612e2f97-14c8-4f89-93bc-a67705b37ae0",
+            "actions": [
+                {
+                    "name": "DevTestKey1(RemoveBeforeLaunch)",
+                    "type": "Button",
+                    "id": "92297a45-abc0-4df2-b89d-1b3d781555bc",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "DevTestKey2(RemoveBeforeLaunch)",
+                    "type": "Button",
+                    "id": "afd22dae-4ad5-401f-8d66-cb83cadbc8b1",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "DevTestKey3(RemoveBeforeLaunch)",
+                    "type": "Button",
+                    "id": "b48c7406-613a-48c1-b174-4209b9eb7c03",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "0841f61c-455f-4bf5-b0b7-9152a9332ec2",
+                    "path": "<Keyboard>/1",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "DevTestKey1(RemoveBeforeLaunch)",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "9b0e8e92-bcff-418a-b314-a81cc60fdf44",
+                    "path": "<Keyboard>/2",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "DevTestKey2(RemoveBeforeLaunch)",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "b359f84d-7c44-408e-8b68-d4224de9f332",
+                    "path": "<Keyboard>/3",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "DevTestKey3(RemoveBeforeLaunch)",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}
