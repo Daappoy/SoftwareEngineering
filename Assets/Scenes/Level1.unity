@@ -136,6 +136,7 @@ GameObject:
   - component: {fileID: 301580616}
   - component: {fileID: 301580615}
   - component: {fileID: 301580617}
+  - component: {fileID: 301580618}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -340,6 +341,21 @@ MonoBehaviour:
   m_DefaultActionMap: LevelActionMap
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!114 &301580618
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 301580611}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b41a6c148f371c4c892f41bae30cc2d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  offset: {x: 0, y: 0, z: 0}
+  damping: 0.1
+  target: {fileID: 1778831344}
 --- !u!1 &314597759
 GameObject:
   m_ObjectHideFlags: 0
