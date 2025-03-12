@@ -17,7 +17,7 @@ public class PlayerScript : MonoBehaviour
 
     [Header("Ground Check")]
     [SerializeField] private Transform groundCheck; 
-    [SerializeField] private float checkRadius = 0.2f;
+    [SerializeField] private float checkRadius = 0.9f;
     [SerializeField] private LayerMask groundLayer;
 
     [Header("Push/Pull")]

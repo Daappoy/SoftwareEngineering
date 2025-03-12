@@ -2,32 +2,24 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ButtonController : MonoBehaviour
+public class ButtonHold : MonoBehaviour
 {
     public bool isHolding = false;
-
-    public Door door;
-    private void OnTriggerEnter2D(Collider2D collision)
+    
+    private void OnTriggerStay2D(Collider2D collision)
     {
         if (collision.CompareTag("Player"))
         {
-            door.ToggleDoor(); //buka pintu
-        }
-    }
-
-    private void OTriggerStay2D(Collider2D collision)
-    {
-        if (collision.CompareTag("Player"))
-        {
+            Debug.Log("Player is holding the button");
             isHolding = true;
         }
     }
-
 
     private void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.CompareTag("Player"))
         {
+            Debug.Log("Player is not holding the button");
             isHolding = false;
         }
     }
