@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 5098145693087358312}
   - component: {fileID: 173494738231641820}
   - component: {fileID: 6247952066771811182}
-  - component: {fileID: 8697762522531399042}
   m_Layer: 6
   m_Name: DoorToggle
   m_TagString: Untagged
@@ -144,22 +143,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dec795b9453ff8740969ee1ae4dee329, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  DoorTID: 0
   openPosToggle: {x: 1.3, y: 4.23, z: 0}
   closedposToggle: {x: -4.12, y: 4.23, z: 0}
-  speed: 2
---- !u!114 &8697762522531399042
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2107867326619675341}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a4619ab8cb8383a4dac63507cd9000fd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  buttonHold: {fileID: 0}
-  openPosHold: {x: 1.3, y: 4.23, z: 0}
-  closedposHold: {x: -4.12, y: 4.23, z: 0}
   speed: 2
