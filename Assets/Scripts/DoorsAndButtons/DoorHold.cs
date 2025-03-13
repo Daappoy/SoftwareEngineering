@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class DoorHold : MonoBehaviour
 {
+    [Header("Door Hold ID")]
+    [SerializeField]
+    private int doorHID;
+    public int DoorHID => doorHID;
     public ButtonHold buttonHold;
     [Header("Door Position")]
     public Vector3 openPosHold;

@@ -5,14 +5,14 @@ using UnityEngine;
 public class ButtonToggle : MonoBehaviour
 {
     [SerializeField]
-    private int buttonID;
+    private int buttonTID;
     private DoorToggle door;
     void Start()
     {
         DoorToggle[] doors = FindObjectsOfType<DoorToggle>();
         foreach (DoorToggle d in doors)
         {
-            if (d.doorTID == buttonID)
+            if (d.doorTID == buttonTID)
             {
                 door = d;
                 break;

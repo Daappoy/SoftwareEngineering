@@ -4,8 +4,23 @@ using UnityEngine;
 
 public class ButtonHold : MonoBehaviour
 {
+    [SerializeField]
+    private int ButtonHID;
     public bool isHolding = false;
-    
+
+    void Start()
+    {
+        DoorHold[] doors = FindObjectsOfType<DoorHold>();
+        foreach(DoorHold d in doors)
+        {
+            if(d.DoorHID == ButtonHID)
+            {
+                d.buttonHold = this;
+                break;
+            }
+        }
+    }
+
     private void OnTriggerStay2D(Collider2D collision)
     {
         if (collision.CompareTag("Player"))
