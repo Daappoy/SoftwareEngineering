@@ -1,8 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerScript : MonoBehaviour
+public class FoxScript : MonoBehaviour
 {
     private Rigidbody2D rb;
     private float moveDirection;
