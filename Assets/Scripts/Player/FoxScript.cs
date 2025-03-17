@@ -26,7 +26,7 @@ public class FoxScript : MonoBehaviour
 
 
 
-    private void Awake()
+    private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
     }
