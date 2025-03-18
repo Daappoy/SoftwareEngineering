@@ -1,27 +1,43 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class FoxScript : MonoBehaviour
 {
     private Rigidbody2D rb;
-    private float moveDirection;
+    private float Horizontal;
     private bool isJumping = false;
     private bool isGrounded = false; 
     private bool isPushingOrPulling = false; //state for pushing/pulling
+    private bool IsWallSliding = false;
+    private bool IsWallJumping = false;
+    private float WallJumpingDirection;
+    private bool IsFacingRight = true;
 
     [Header("Player Movement")]
-    [SerializeField] private float speed = 5f;
+    [SerializeField] private float speed = 8f;
     [SerializeField] private float reducedSpeed = 2f; //Slower speed when pushing/pulling
-    [SerializeField] private float jumpForce = 7f;
+    [SerializeField] private float jumpingPower = 7f;
+    
 
-    [Header("Ground Check")]
+    [Header("Ground/Wall Check")]
     [SerializeField] private Transform groundCheck; 
-    [SerializeField] private float checkRadius = 0.9f;
+    [SerializeField] private float groundcheckRadius = 0.2f;
     [SerializeField] private LayerMask groundLayer;
+    [SerializeField] private Transform WallCheck;
+    [SerializeField] private float wallcheckRadius = 0.9f;
+    [SerializeField] private LayerMask WallLayer;
 
     [Header("Push/Pull")]
     [SerializeField] private float distance = 1f;
     [SerializeField] private LayerMask InteractMask;
     private GameObject box;
+
+    [Header("WallJump")]
+    [SerializeField] private float WallJumpingTime = 0.2f;
+    [SerializeField] private float WallSlidingSpeed = 2f;
+    [SerializeField] private float WallJumpCounter = 0;
+    [SerializeField] private float WallJumpDuration = 0.4f;
+    [SerializeField] private Vector2 WallJumpingPower = new Vector2(8f, 16f);
 
 
 
@@ -54,53 +70,125 @@ public class FoxScript : MonoBehaviour
             box.GetComponent<FixedJoint2D>().enabled = false;
             box.GetComponent<BoxPull>().beingPushed = false;
         }
+
+        WallSlide();
+        WallJump();
     }
 
     private void FixedUpdate()
     {
-        Move();
+        Move();       
         CheckGround();
+    }
+
+    private void Flip()
+    {
+        // Flip character when changing direction
+        if (IsFacingRight && Horizontal < 0f || !IsFacingRight && Horizontal > 0f)
+        {
+            IsFacingRight = !IsFacingRight;
+            Vector3 localscale = transform.localScale;
+            localscale.x *= -1f;
+            transform.localScale = localscale;
+
+        }
     }
 
     private void Move()
     {
-        rb.velocity = new Vector2(moveDirection * speed, rb.velocity.y);
-
-        // Flip character when changing direction
-        if (moveDirection > 0)
+        if (!IsWallJumping)
         {
-            transform.localScale = new Vector3(1, 1, 1); // Facing right
-        }
-        else if (moveDirection < 0)
-        {
-            transform.localScale = new Vector3(-1, 1, 1); // Facing left
+            rb.velocity = new Vector2(Horizontal * speed, rb.velocity.y);
         }
 
-        if (isJumping && isGrounded)
-        {
-            rb.velocity = new Vector2(rb.velocity.x, jumpForce);
-            isJumping = false; // Reset jump state
-        }
+        Flip();
+
+        
     }
 
     private void ProcessInputs()
     {
-        moveDirection = Input.GetAxis("Horizontal");
+
+        Horizontal = Input.GetAxis("Horizontal");
 
         if (Input.GetKeyDown(KeyCode.Space) && !isPushingOrPulling && isGrounded)
         {
-            isJumping = true;
+            rb.velocity = new Vector2(rb.velocity.x, jumpingPower);
+        }
+
+        if (Input.GetKeyUp(KeyCode.Space) && !isPushingOrPulling && isGrounded)
+        {
+            rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * 0.5f);
         }
     }
 
-    private void CheckGround()
+    private bool CheckGround()
     {
-        isGrounded = Physics2D.OverlapCircle(groundCheck.position, checkRadius, groundLayer);
+        isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundcheckRadius, groundLayer);
+        return isGrounded;
     }
 
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.yellow;
         Gizmos.DrawLine(transform.position, (Vector2)transform.position + Vector2.right * transform.localScale.x * distance);
+    }
+
+    private bool IsWalled()
+    {
+        return Physics2D.OverlapCircle(WallCheck.position, wallcheckRadius, WallLayer);
+    }
+
+    private void WallSlide()
+    {
+        if (IsWalled() && !CheckGround() && Horizontal != 0f) 
+        {
+            IsWallSliding = true;
+            rb.velocity = new Vector2(rb.velocity.x, Mathf.Clamp(rb.velocity.y, -WallSlidingSpeed, float.MaxValue));
+        }
+        else
+        {
+            IsWallSliding = false;
+        }
+    }
+
+    private void WallJump()
+    {
+        if (IsWallSliding) 
+        {
+            WallJumpingDirection = IsFacingRight ? -1f : 1f; // Ensure direction is set correctly
+            IsWallJumping = false;
+            WallJumpCounter = WallJumpingTime;
+            CancelInvoke(nameof(StopWallJumping));
+        }
+        else
+        {
+            WallJumpCounter -= Time.deltaTime;
+        }
+
+        if (Input.GetKeyDown(KeyCode.Space) && WallJumpCounter > 0f)
+        {
+            IsWallJumping = true;
+
+
+
+            // Apply the jump force
+            rb.velocity = new Vector2(WallJumpingDirection * WallJumpingPower.x, WallJumpingPower.y);
+            WallJumpCounter = 0f;
+
+            // Ensure the player faces the correct direction after jumping
+            if ((WallJumpingDirection > 0 && !IsFacingRight) || (WallJumpingDirection < 0 && IsFacingRight))
+            {
+                Flip();
+            }
+
+            Invoke(nameof(StopWallJumping), WallJumpDuration);
+        }
+
+    }
+
+    private void StopWallJumping()
+    {
+        IsWallJumping = false; // Allow movement again
     }
 }
