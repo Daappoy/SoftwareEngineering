@@ -1232,8 +1232,8 @@ MonoBehaviour:
   isFlying: 0
   isGrounded: 0
   isGrabItem: 0
-  speed: 2
-  flyStrength: 2.5
+  speed: 3
+  flyStrength: 3
   groundCheck: {fileID: 0}
   checkRadius: 0.9
   groundLayer:

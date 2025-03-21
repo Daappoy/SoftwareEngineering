@@ -53,7 +53,7 @@ public class CrowScript : MonoBehaviour
         }
         else if(Input.GetKey(KeyCode.Space))
         {
-            // rb.gravityScale = 0.1f;
+            rb.gravityScale = 0.1f;
         }
         else 
         {
