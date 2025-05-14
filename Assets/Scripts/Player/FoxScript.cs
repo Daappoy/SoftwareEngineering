@@ -33,6 +33,8 @@ public class FoxScript : MonoBehaviour
     private GameObject box;
 
     [Header("WallJump")]
+    [SerializeField] private int wallJumpCount = 0;
+    [SerializeField] private int maxWallJumps = 3;
     [SerializeField] private float WallJumpingTime = 0.2f;
     [SerializeField] private float WallSlidingSpeed = 2f;
     [SerializeField] private float WallJumpCounter = 0;
@@ -153,42 +155,56 @@ public class FoxScript : MonoBehaviour
     }
 
     private void WallJump()
+{
+    if (IsWallSliding) 
     {
-        if (IsWallSliding) 
-        {
-            WallJumpingDirection = IsFacingRight ? -1f : 1f; // Ensure direction is set correctly
-            IsWallJumping = false;
-            WallJumpCounter = WallJumpingTime;
-            CancelInvoke(nameof(StopWallJumping));
-        }
-        else
-        {
-            WallJumpCounter -= Time.deltaTime;
-        }
-
-        if (Input.GetKeyDown(KeyCode.Space) && WallJumpCounter > 0f)
-        {
-            IsWallJumping = true;
-
-
-
-            // Apply the jump force
-            rb.velocity = new Vector2(WallJumpingDirection * WallJumpingPower.x, WallJumpingPower.y);
-            WallJumpCounter = 0f;
-
-            // Ensure the player faces the correct direction after jumping
-            if ((WallJumpingDirection > 0 && !IsFacingRight) || (WallJumpingDirection < 0 && IsFacingRight))
-            {
-                Flip();
-            }
-
-            Invoke(nameof(StopWallJumping), WallJumpDuration);
-        }
-
+        WallJumpingDirection = IsFacingRight ? -1f : 1f; // Ensure direction is set correctly
+        IsWallJumping = false;
+        WallJumpCounter = WallJumpingTime;
+        CancelInvoke(nameof(StopWallJumping));
     }
+    else
+    {
+        WallJumpCounter -= Time.deltaTime;
+    }
+
+    if (Input.GetKeyDown(KeyCode.Space) && WallJumpCounter > 0f && wallJumpCount < maxWallJumps)
+    {
+        IsWallJumping = true;
+
+        // Increment the wall jump counter
+        wallJumpCount++;
+
+        // Apply the jump force
+        rb.velocity = new Vector2(WallJumpingDirection * WallJumpingPower.x, WallJumpingPower.y);
+        WallJumpCounter = 0f;
+
+        if(wallJumpCount == maxWallJumps)
+        {
+            Debug.Log("Max wall jumps reached");
+        }
+
+        // Ensure the player faces the correct direction after jumping
+        if ((WallJumpingDirection > 0 && !IsFacingRight) || (WallJumpingDirection < 0 && IsFacingRight))
+        {
+            Flip();
+        }
+
+        Invoke(nameof(StopWallJumping), WallJumpDuration);
+    }
+}
 
     private void StopWallJumping()
     {
         IsWallJumping = false; // Allow movement again
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Ground"))
+        {
+            wallJumpCount = 0; // Reset wall jump count when touching the ground
+            Debug.Log("Wall jump count reset");
+        }
     }
 }

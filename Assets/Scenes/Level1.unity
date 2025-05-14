@@ -1323,7 +1323,7 @@ Rigidbody2D:
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: c900a3f0e1e8adf4cbba6aa745aa92c3, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -1428,6 +1428,8 @@ MonoBehaviour:
   InteractMask:
     serializedVersion: 2
     m_Bits: 128
+  wallJumpCount: 0
+  maxWallJumps: 3
   WallJumpingTime: 0.2
   WallSlidingSpeed: 1
   WallJumpCounter: 0
