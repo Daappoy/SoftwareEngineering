@@ -21,7 +21,7 @@ public class ButtonPressurePlate : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision) //OnEnter we change the sprite loc and toggles
     {
-        if (collision.tag == "Player")
+        if (collision.tag == "Player" || collision.tag == "Pushable")
         {
             Debug.Log("touched");
             pressed = true;
@@ -32,7 +32,7 @@ public class ButtonPressurePlate : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D collision) //OnExit we change the sprite loc and toggles
     {
-        if (collision.tag == "Player")
+        if (collision.tag == "Player" || collision.tag == "Pushable")
         {
             Debug.Log("untouched");
             pressed = false;
@@ -43,7 +43,7 @@ public class ButtonPressurePlate : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D collision) //OnStay we move the door
     {
-        if (collision.tag == "Player")
+        if (collision.tag == "Player" || collision.tag == "Pushable")
         {
             opendoor();
         }
