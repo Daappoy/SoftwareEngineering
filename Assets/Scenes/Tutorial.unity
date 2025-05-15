@@ -1385,7 +1385,7 @@ MonoBehaviour:
   Crow: {fileID: 1396101467}
   playerSwitch: {fileID: 1137287843}
   offset: {x: 0, y: 0, z: 0}
-  damping: 0
+  damping: 0.09
 --- !u!1 &546595957
 GameObject:
   m_ObjectHideFlags: 0
