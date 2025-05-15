@@ -1,5 +1,7 @@
 
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class CrowScript : MonoBehaviour
 {
@@ -19,6 +21,12 @@ public class CrowScript : MonoBehaviour
     [SerializeField] private Transform groundCheck; 
     [SerializeField] private float checkRadius = 0.9f;
     [SerializeField] private LayerMask groundLayer;
+
+    [Header("Push/Pull")]
+    [SerializeField] private float distance = 1f;
+    [SerializeField] private LayerMask InteractMask;
+    private GameObject box;
+    private bool isPushingOrPulling = false; //state for pushing/pulling
 
     // Start is called before the first frame update
     void Awake()
@@ -40,6 +48,27 @@ public class CrowScript : MonoBehaviour
         else 
         {
             rb.gravityScale = 1f;
+        }
+
+        // Perform a raycast below the player to check for pushable objects
+        Physics2D.queriesStartInColliders = false;
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, distance, InteractMask);
+
+        // If a pushable object is detected and the player presses "E", attach it to the player using a FixedJoint2D
+        if (hit.collider != null && hit.collider.CompareTag("Pushable") && Input.GetKeyDown(KeyCode.E))
+        {
+            isPushingOrPulling = true;
+            box = hit.collider.gameObject;
+
+            box.GetComponent<FixedJoint2D>().enabled = true;
+            box.GetComponent<BoxPull>().beingPushed = true;
+            box.GetComponent<FixedJoint2D>().connectedBody = this.GetComponent<Rigidbody2D>();
+        }
+        else if (Input.GetKeyUp(KeyCode.E)) // When the player releases "E", detach the object by disabling the FixedJoint2D
+        {
+            isPushingOrPulling = false;
+            box.GetComponent<FixedJoint2D>().enabled = false;
+            box.GetComponent<BoxPull>().beingPushed = false;
         }
     }
 
