@@ -236,7 +236,7 @@ Rigidbody2D:
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: c900a3f0e1e8adf4cbba6aa745aa92c3, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -3936,7 +3936,7 @@ Rigidbody2D:
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: c900a3f0e1e8adf4cbba6aa745aa92c3, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -4109,7 +4109,7 @@ GameObject:
   - component: {fileID: 1781096947}
   - component: {fileID: 1781096949}
   - component: {fileID: 1781096948}
-  m_Layer: 6
+  m_Layer: 8
   m_Name: WallRightMidRight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4576,7 +4576,7 @@ GameObject:
   - component: {fileID: 2135345574}
   - component: {fileID: 2135345573}
   - component: {fileID: 2135345572}
-  m_Layer: 6
+  m_Layer: 8
   m_Name: WallRightRight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
