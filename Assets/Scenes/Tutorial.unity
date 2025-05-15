@@ -3366,7 +3366,7 @@ Rigidbody2D:
     m_Bits: 0
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 4
 --- !u!61 &1396101469
 BoxCollider2D:
@@ -3435,6 +3435,10 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
+  distance: 1
+  InteractMask:
+    serializedVersion: 2
+    m_Bits: 128
 --- !u!212 &1396101471
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -3833,7 +3837,7 @@ GameObject:
   - component: {fileID: 1535875706}
   - component: {fileID: 1535875705}
   m_Layer: 7
-  m_Name: MoveableBox
+  m_Name: MoveableBoxRight
   m_TagString: Pushable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
