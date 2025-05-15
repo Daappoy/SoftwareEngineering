@@ -5,23 +5,22 @@ using UnityEngine.XR;
 
 public class ButtonPressurePlate : MonoBehaviour
 {
-    private bool pressed = false;
-    public GameObject Sprite;
-    private Vector3 originalPos;
-    public GameObject door;
-    private Vector3 doorOriginalPos;
-    private Doorvariables DV;
+    private bool pressed = false; //toggle for plate
+    public GameObject Sprite; //animation sprite
+    private Vector3 originalPos; //saves starting position
+    public GameObject door; //GmObj door
+    private Vector3 doorOriginalPos; //saves starting position door
+    private Doorvariables DV; //bugfixes: asked for door toggle bool
 
-    private void Start()
+    private void Start() //saves position, yes this consumes memory
     {
         originalPos = Sprite.transform.position;
         doorOriginalPos = door.transform.position;
-        DV = door.GetComponent<Doorvariables>();
+        DV = door.GetComponent<Doorvariables>(); //I'm too lazy to make a new public
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerEnter2D(Collider2D collision) //OnEnter we change the sprite loc and toggles
     {
-        Debug.Log("touched");
         if (collision.tag == "Player")
         {
             Debug.Log("touched");
@@ -31,7 +30,7 @@ public class ButtonPressurePlate : MonoBehaviour
         }
     }
 
-    private void OnTriggerExit2D(Collider2D collision)
+    private void OnTriggerExit2D(Collider2D collision) //OnExit we change the sprite loc and toggles
     {
         if (collision.tag == "Player")
         {
@@ -42,7 +41,7 @@ public class ButtonPressurePlate : MonoBehaviour
         }
     }
 
-    private void OnTriggerStay2D(Collider2D collision)
+    private void OnTriggerStay2D(Collider2D collision) //OnStay we move the door
     {
         if (collision.tag == "Player")
         {
@@ -50,21 +49,21 @@ public class ButtonPressurePlate : MonoBehaviour
         }
     }
 
-    private void opendoor()
+    private void opendoor() //this opens the door, yAxis can be changed for speed
     {
-        if (door.transform.position.y > doorOriginalPos.y - 4)
+        if (door.transform.position.y > doorOriginalPos.y - 4) //stop it from running away
         {
             door.transform.Translate(0, - 0.5f, 0);
         }
     }
 
-    private void FixedUpdate()
+    private void FixedUpdate() //keep it updated fixed, can be changed for speed
     {
         
-        if (door.transform.position.y < doorOriginalPos.y && !DV.isOpen)
+        if (door.transform.position.y < doorOriginalPos.y && !DV.isOpen) //stop it from running away, check toggle
         {
             Debug.Log("up");
-            door.transform.Translate(0, 0.01f, 0);
+            door.transform.Translate(0, 0.01f, 0); //this closes the door, yAxis can be changed for speed
         }
     }
 }
