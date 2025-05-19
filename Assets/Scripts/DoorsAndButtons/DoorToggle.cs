@@ -11,8 +11,10 @@ public class DoorToggle : MonoBehaviour
     public int doorTID => DoorTID;
     private ButtonToggle buttonToggle;
     [Header("Door Position")]
-    public Vector3 openPosToggle;
-    public Vector3 closedposToggle;
+    [SerializeField]
+    private Vector3 openPosToggle;
+    [SerializeField]
+    private Vector3 closedposToggle;
     [Header("Door Speed")]
     public float speed = 2f;
     [Header("Door State")]
@@ -20,7 +22,7 @@ public class DoorToggle : MonoBehaviour
 
     void Start()
     {
-       closedposToggle = transform.position;
+    //    closedposToggle = transform.position;
     }
 
     void Update()

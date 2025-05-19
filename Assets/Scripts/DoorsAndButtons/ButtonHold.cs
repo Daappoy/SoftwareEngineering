@@ -23,7 +23,7 @@ public class ButtonHold : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if (collision.CompareTag("Player"))
+        if (collision.CompareTag("Player") || collision.CompareTag("Pushable"))
         {
             Debug.Log("Player is holding the button");
             isHolding = true;
@@ -32,7 +32,7 @@ public class ButtonHold : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.CompareTag("Player"))
+        if (collision.CompareTag("Player") || collision.CompareTag("Pushable"))
         {
             Debug.Log("Player is not holding the button");
             isHolding = false;

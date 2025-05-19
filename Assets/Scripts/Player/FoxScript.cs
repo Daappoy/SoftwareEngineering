@@ -143,15 +143,15 @@ public class FoxScript : MonoBehaviour
 
     private void WallSlide()
     {
-        if ( !CheckGround() && Horizontal != 0f) 
-        {
-            IsWallSliding = true;
-            rb.velocity = new Vector2(rb.velocity.x, Mathf.Clamp(rb.velocity.y, -WallSlidingSpeed, float.MaxValue));
-        }
-        else
-        {
-            IsWallSliding = false;
-        }
+        // if ( !CheckGround() && Horizontal != 0f) 
+        // {
+        //     IsWallSliding = true;
+        //     rb.velocity = new Vector2(rb.velocity.x, Mathf.Clamp(rb.velocity.y, -WallSlidingSpeed, float.MaxValue));
+        // }
+        // else
+        // {
+        //     IsWallSliding = false;
+        // }
     }
 
     private void WallJump()
