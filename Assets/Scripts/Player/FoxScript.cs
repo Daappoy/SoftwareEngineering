@@ -12,6 +12,7 @@ public class FoxScript : MonoBehaviour
     private bool IsWallJumping = false;
     private float WallJumpingDirection;
     private bool IsFacingRight = true;
+    
 
     [Header("Player Movement")]
     [SerializeField] private float speed = 8f;
@@ -42,8 +43,6 @@ public class FoxScript : MonoBehaviour
     [SerializeField] private Vector2 WallJumpingPower = new Vector2(8f, 16f);
 
 
-
-
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -65,8 +64,8 @@ public class FoxScript : MonoBehaviour
             box.GetComponent<FixedJoint2D>().enabled = true;
             box.GetComponent<BoxPull>().beingPushed = true;
             box.GetComponent<FixedJoint2D>().connectedBody = this.GetComponent<Rigidbody2D>();
-        }   
-        else if (Input.GetKeyUp(KeyCode.E) && hit.collider != null ) // When the player releases "E", detach the object by disabling the FixedJoint2D
+        }
+        else if (Input.GetKeyUp(KeyCode.E) && hit.collider != null) // When the player releases "E", detach the object by disabling the FixedJoint2D
         {
             isPushingOrPulling = false;
             box.GetComponent<FixedJoint2D>().enabled = false;
@@ -92,7 +91,6 @@ public class FoxScript : MonoBehaviour
             Vector3 localscale = transform.localScale;
             localscale.x *= -1f;
             transform.localScale = localscale;
-
         }
     }
 
@@ -199,12 +197,5 @@ public class FoxScript : MonoBehaviour
         IsWallJumping = false; // Allow movement again
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.gameObject.CompareTag("Ground"))
-        {
-            wallJumpCount = 0; // Reset wall jump count when touching the ground
-            Debug.Log("Wall jump count reset");
-        }
-    }
+    
 }

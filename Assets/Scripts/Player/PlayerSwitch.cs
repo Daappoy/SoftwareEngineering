@@ -8,23 +8,34 @@ public class PlayerSwitch : MonoBehaviour
 
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Q))
+        if (Input.GetKeyDown(KeyCode.Q))
         {
             SwitchPlayer();
+        }
+
+        if( isFox == false )
+        {
+            FoxController.enabled = false;
+            CrowController.enabled = true;
+        }
+        else if( isFox == true )
+        {
+            FoxController.enabled = true;
+            CrowController.enabled = false;
         }
     }
     public void SwitchPlayer()
     {
-        if(isFox == true )
+        if( isFox == true )
         {
-            FoxController.enabled = false;
-            CrowController.enabled = true;
+            // FoxController.enabled = false;
+            // CrowController.enabled = true;
             isFox = false;
         }
         else
         {
-            FoxController.enabled = true;
-            CrowController.enabled = false;
+            // FoxController.enabled = true;
+            // CrowController.enabled = false;
             isFox = true;
         }
     }

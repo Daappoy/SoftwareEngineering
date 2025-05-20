@@ -20,7 +20,7 @@ public class CrowScript : MonoBehaviour
     [Header("Ground Check")]
     [SerializeField]
     public GameObject GroundCheckGameObject;
-    [SerializeField] private Transform groundCheck; 
+    [SerializeField] private Transform groundCheck;
     [SerializeField] private float checkRadius = 0.9f;
     [SerializeField] private LayerMask groundLayer;
 
@@ -29,6 +29,11 @@ public class CrowScript : MonoBehaviour
     [SerializeField] private LayerMask InteractMask;
     private GameObject box;
     private bool isPushingOrPulling = false; //state for pushing/pulling
+
+
+
+    [Header("Player Switch")]
+    public PlayerSwitch playerSwitchScript;
 
     // Start is called before the first frame update
     void Awake()
@@ -43,17 +48,17 @@ public class CrowScript : MonoBehaviour
 
         //move the player left and right (MOVEMENT)
         rb.velocity = new Vector2(horizontalInput * speed, rb.velocity.y);
-        
-        
-        if(Input.GetKeyDown(KeyCode.Space))
+
+
+        if (Input.GetKeyDown(KeyCode.Space))
         {
             rb.velocity = Vector2.up * flyStrength;
         }
-        else if(Input.GetKey(KeyCode.Space))
+        else if (Input.GetKey(KeyCode.Space))
         {
             rb.gravityScale = 0.1f;
         }
-        else 
+        else
         {
             rb.gravityScale = 1f;
         }
@@ -90,10 +95,17 @@ public class CrowScript : MonoBehaviour
         }
     }
 
-    
+
     private void FixedUpdate()
     {
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, checkRadius, groundLayer);
         // Check if the player is on the ground 
     }
+
+    public void OnDetachBoost()
+    {
+        // Detach the crow from the fox and apply a boost
+        rb.velocity = new Vector2(rb.velocity.x, flyStrength * 2.5f);
+    }
 }
+
