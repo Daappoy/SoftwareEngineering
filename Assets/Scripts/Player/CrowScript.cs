@@ -15,9 +15,11 @@ public class CrowScript : MonoBehaviour
 
     [Header("crow Movement")]
     [SerializeField] private float speed = 5f;
-    [SerializeField] public float flyStrength = 5f; 
+    [SerializeField] public float flyStrength = 5f;
 
     [Header("Ground Check")]
+    [SerializeField]
+    public GameObject GroundCheckGameObject;
     [SerializeField] private Transform groundCheck; 
     [SerializeField] private float checkRadius = 0.9f;
     [SerializeField] private LayerMask groundLayer;
@@ -37,6 +39,12 @@ public class CrowScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        float horizontalInput = Input.GetAxis("Horizontal");
+
+        //move the player left and right (MOVEMENT)
+        rb.velocity = new Vector2(horizontalInput * speed, rb.velocity.y);
+        
+        
         if(Input.GetKeyDown(KeyCode.Space))
         {
             rb.velocity = Vector2.up * flyStrength;
@@ -48,6 +56,16 @@ public class CrowScript : MonoBehaviour
         else 
         {
             rb.gravityScale = 1f;
+        }
+
+        // Flip the sprite based on the direction the player is moving (VISUAL)
+        if (horizontalInput > 0)
+        {
+            transform.localScale = new Vector3(0.5f, 0.5f, 0.5f); // Facing right
+        }
+        else if (horizontalInput < 0)
+        {
+            transform.localScale = new Vector3(-0.5f, 0.5f, 0.5f); // Facing left
         }
 
         // Perform a raycast below the player to check for pushable objects
@@ -72,46 +90,10 @@ public class CrowScript : MonoBehaviour
         }
     }
 
+    
     private void FixedUpdate()
     {
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, checkRadius, groundLayer);
-        // Check if the player is on the ground
-       float horizontalInput = Input.GetAxis("Horizontal");
-       
-       //move the player left and right (MOVEMENT)
-       if(isFlying)
-        {
-            rb.velocity = new Vector2(horizontalInput * speed, rb.velocity.y);
-        }
-        
-
-        // Flip the sprite based on the direction the player is moving (VISUAL)
-       if (horizontalInput > 0)
-        {
-            transform.localScale = new Vector3(0.5f, 0.5f, 0.5f); // Facing right
-        }
-        else if (horizontalInput < 0)
-        {
-            transform.localScale = new Vector3(-0.5f, 0.5f, 0.5f); // Facing left
-        }
-    }
-
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.gameObject.CompareTag("Ground"))
-        {
-            isFlying = false;
-            // speed = 0f; // Stop the player when on the ground
-            rb.velocity = new Vector2(0, rb.velocity.y); // Keep the vertical velocity
-        }
-    }
-    private void OnCollisionExit2D(Collision2D collision)
-    {
-        if (collision.gameObject.CompareTag("Ground"))
-        {
-            isFlying = true;
-            // speed = 3f; // Resume the player speed when leaving the ground
-            
-        }
+        // Check if the player is on the ground 
     }
 }

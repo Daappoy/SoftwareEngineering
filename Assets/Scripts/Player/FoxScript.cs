@@ -66,7 +66,7 @@ public class FoxScript : MonoBehaviour
             box.GetComponent<BoxPull>().beingPushed = true;
             box.GetComponent<FixedJoint2D>().connectedBody = this.GetComponent<Rigidbody2D>();
         }   
-        else if (Input.GetKeyUp(KeyCode.E)) // When the player releases "E", detach the object by disabling the FixedJoint2D
+        else if (Input.GetKeyUp(KeyCode.E) && hit.collider != null ) // When the player releases "E", detach the object by disabling the FixedJoint2D
         {
             isPushingOrPulling = false;
             box.GetComponent<FixedJoint2D>().enabled = false;
