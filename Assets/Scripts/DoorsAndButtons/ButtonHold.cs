@@ -8,6 +8,9 @@ public class ButtonHold : MonoBehaviour
     private int ButtonHID;
     public bool isHolding = false;
 
+    public Sprite ButtonUnpressed;
+    public Sprite ButtonPressed;
+
     void Start()
     {
         DoorHold[] doors = FindObjectsOfType<DoorHold>();
@@ -27,6 +30,7 @@ public class ButtonHold : MonoBehaviour
         {
             Debug.Log("Player is holding the button");
             isHolding = true;
+            GetComponent<SpriteRenderer>().sprite = ButtonPressed;
         }
     }
 
@@ -36,6 +40,7 @@ public class ButtonHold : MonoBehaviour
         {
             Debug.Log("Player is not holding the button");
             isHolding = false;
+            GetComponent<SpriteRenderer>().sprite = ButtonUnpressed;
         }
     }
 }

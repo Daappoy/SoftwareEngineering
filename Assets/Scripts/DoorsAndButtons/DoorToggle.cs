@@ -18,7 +18,7 @@ public class DoorToggle : MonoBehaviour
     [Header("Door Speed")]
     public float speed = 2f;
     [Header("Door State")]
-    private bool isOpen = false;
+    public bool isOpen = false;
 
     void Start()
     {

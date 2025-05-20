@@ -75,7 +75,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 6792223fbb39e0c4fbab960227d46521, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 76b6cab50f0712c439e2020c93845585, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -118,18 +118,18 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -0.009630546, y: -0.0042650253}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.22, y: 0.07}
+    oldSize: {x: 0.24, y: 0.19}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.22185227, y: 0.18396273}
   m_EdgeRadius: 0
 --- !u!114 &3614865890877160358
 MonoBehaviour:
@@ -144,3 +144,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buttonTID: 0
+  LeverOn: {fileID: 21300000, guid: c9296f22de88af04f998d09862b4c559, type: 3}
+  LeverOff: {fileID: 21300000, guid: 76b6cab50f0712c439e2020c93845585, type: 3}
