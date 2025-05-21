@@ -406,6 +406,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1835449979837953123, guid: 2e9fa01bbe1106c4bb545c0c56cd2cf8, type: 3}
+      propertyPath: doorHold
+      value: 
+      objectReference: {fileID: 875277853}
+    - target: {fileID: 1835449979837953123, guid: 2e9fa01bbe1106c4bb545c0c56cd2cf8, type: 3}
       propertyPath: ButtonHID
       value: 1
       objectReference: {fileID: 0}
@@ -574,6 +578,17 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &192331247 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: -3215758054813135603, guid: ca4882c5a752f3f44b74df81af934564, type: 3}
+  m_PrefabInstance: {fileID: 1883324067}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4619ab8cb8383a4dac63507cd9000fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &253601432
 GameObject:
   m_ObjectHideFlags: 0
@@ -764,7 +779,7 @@ Transform:
   m_GameObject: {fileID: 253601432}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 13.87, y: -4.11, z: 0}
+  m_LocalPosition: {x: 25.69, y: 4.33, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1678,6 +1693,17 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &875277853 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: -3215758054813135603, guid: ca4882c5a752f3f44b74df81af934564, type: 3}
+  m_PrefabInstance: {fileID: 1458896141}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4619ab8cb8383a4dac63507cd9000fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &987159254
 GameObject:
   m_ObjectHideFlags: 0
@@ -2155,8 +2181,12 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1835449979837953123, guid: 2e9fa01bbe1106c4bb545c0c56cd2cf8, type: 3}
+      propertyPath: doorHold
+      value: 
+      objectReference: {fileID: 192331247}
+    - target: {fileID: 1835449979837953123, guid: 2e9fa01bbe1106c4bb545c0c56cd2cf8, type: 3}
       propertyPath: ButtonHID
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 3214161158386377231, guid: 2e9fa01bbe1106c4bb545c0c56cd2cf8, type: 3}
       propertyPath: m_Name
@@ -2653,7 +2683,7 @@ Transform:
   m_GameObject: {fileID: 1396101467}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.34, y: -3.94, z: 0}
+  m_LocalPosition: {x: 14.01, y: 21.24, z: 0}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -3318,7 +3348,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -3215758054813135603, guid: ca4882c5a752f3f44b74df81af934564, type: 3}
       propertyPath: doorHID
-      value: 2
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: -3215758054813135603, guid: ca4882c5a752f3f44b74df81af934564, type: 3}
+      propertyPath: buttonHold
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: -3215758054813135603, guid: ca4882c5a752f3f44b74df81af934564, type: 3}
       propertyPath: openPosHold.x

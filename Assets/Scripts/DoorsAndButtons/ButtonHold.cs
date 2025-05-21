@@ -6,6 +6,10 @@ public class ButtonHold : MonoBehaviour
 {
     [SerializeField]
     private int ButtonHID;
+    public int buttonHID => ButtonHID;
+    [SerializeField]
+    private DoorHold doorHold;
+    [SerializeField]
     public bool isHolding = false;
 
     public Sprite ButtonUnpressed;
@@ -18,7 +22,7 @@ public class ButtonHold : MonoBehaviour
         {
             if(d.DoorHID == ButtonHID)
             {
-                d.buttonHold = this;
+                doorHold = d;
                 break;
             }
         }
@@ -26,9 +30,8 @@ public class ButtonHold : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if (collision.CompareTag("Player") || collision.CompareTag("Pushable"))
+        if (collision.CompareTag("Player") || collision.CompareTag("Pushable") && doorHold != null)
         {
-            Debug.Log("Player is holding the button");
             isHolding = true;
             GetComponent<SpriteRenderer>().sprite = ButtonPressed;
         }
@@ -38,7 +41,12 @@ public class ButtonHold : MonoBehaviour
     {
         if (collision.CompareTag("Player") || collision.CompareTag("Pushable"))
         {
-            Debug.Log("Player is not holding the button");
+            // if(doorHold.DoorHID == ButtonHID)
+            // {
+            //     Debug.Log("Player is not holding the button");
+            //     isHolding = false;
+            //     GetComponent<SpriteRenderer>().sprite = ButtonUnpressed;
+            // }
             isHolding = false;
             GetComponent<SpriteRenderer>().sprite = ButtonUnpressed;
         }

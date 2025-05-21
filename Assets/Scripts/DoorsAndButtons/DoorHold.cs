@@ -18,8 +18,16 @@ public class DoorHold : MonoBehaviour
     private bool isOpen = false;
     void Start()
     {
-        buttonHold = GameObject.Find("ButtonHold").GetComponent<ButtonHold>();
-       closedposHold = transform.position;
+        ButtonHold[] buttons = FindObjectsOfType<ButtonHold>();
+        foreach (ButtonHold b in buttons)
+        {
+            if (b.buttonHID == doorHID)
+            {
+                buttonHold = b;
+                break;
+            }
+        }
+        closedposHold = transform.position;
     }
 
     void Update()
