@@ -101,7 +101,14 @@ public class FoxScript : MonoBehaviour
             rb.velocity = new Vector2(Horizontal * speed, rb.velocity.y);
         }
 
-        Flip();
+        if (isPushingOrPulling == true)
+        {
+
+        } else
+        {
+            Flip();
+        }
+        
 
         
     }
