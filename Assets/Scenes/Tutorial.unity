@@ -604,6 +604,7 @@ GameObject:
   - component: {fileID: 253601433}
   - component: {fileID: 253601438}
   - component: {fileID: 253601439}
+  - component: {fileID: 253601440}
   m_Layer: 0
   m_Name: Fox
   m_TagString: Player
@@ -647,7 +648,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 3, y: 3}
+    oldSize: {x: 1.875, y: 1.1875}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -668,6 +669,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5aa750dd687c544448da4a0d8542e8c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Horizontal: 0
+  InputEnabled: 1
   speed: 5
   reducedSpeed: 4
   jumpingPower: 7
@@ -829,6 +832,21 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &253601440
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 253601432}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 78a6e5f9448b4614abdd0dd16adf66a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerSwitchScript: {fileID: 1137287843}
+  foxScript: {fileID: 253601434}
+  FoxAnimator: {fileID: 253601439}
 --- !u!1001 &472642156
 PrefabInstance:
   m_ObjectHideFlags: 0

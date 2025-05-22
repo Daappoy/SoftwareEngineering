@@ -15,12 +15,12 @@ public class PlayerSwitch : MonoBehaviour
 
         if( isFox == false )
         {
-            FoxController.enabled = false;
+            FoxController.InputEnabled = false;
             CrowController.enabled = true;
         }
         else if( isFox == true )
         {
-            FoxController.enabled = true;
+            FoxController.InputEnabled = true;
             CrowController.enabled = false;
         }
     }
