@@ -17,7 +17,8 @@ public class FoxAnimatorScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        FoxAnimator.SetFloat("speed", Mathf.Abs(foxScript.Horizontal));
+        FoxAnimator.SetFloat("speed", Mathf.Abs(foxScript.FoxRb.velocity.x));
         FoxAnimator.SetBool("isFox", playerSwitchScript.isFox);
+        FoxAnimator.SetBool("isPushingOrPulling", foxScript.isPushingOrPulling);
     }
 }

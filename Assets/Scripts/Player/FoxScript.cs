@@ -3,11 +3,11 @@ using UnityEngine;
 
 public class FoxScript : MonoBehaviour
 {
-    private Rigidbody2D rb;
+    public Rigidbody2D FoxRb;
     public float Horizontal;
     private bool isJumping = false;
     private bool isGrounded = false; 
-    private bool isPushingOrPulling = false; //state for pushing/pulling
+    public bool isPushingOrPulling = false; //state for pushing/pulling
     private bool IsWallSliding = false;
     private bool IsWallJumping = false;
     private float WallJumpingDirection;
@@ -47,7 +47,7 @@ public class FoxScript : MonoBehaviour
 
     private void Awake()
     {
-        rb = GetComponent<Rigidbody2D>();
+        FoxRb = GetComponent<Rigidbody2D>();
     }
 
     void Update()
@@ -102,13 +102,15 @@ public class FoxScript : MonoBehaviour
     {
         if (!IsWallJumping && InputEnabled == true)
         {
-            rb.velocity = new Vector2(Horizontal * speed, rb.velocity.y);
+            FoxRb.velocity = new Vector2(Horizontal * speed, FoxRb.velocity.y);
         }
 
         if (isPushingOrPulling == true)
         {
-
-        } else
+            FoxRb.velocity = new Vector2(Horizontal * reducedSpeed, FoxRb.velocity.y);
+            
+        }
+        else
         {
             Flip();
         }
@@ -126,13 +128,13 @@ public class FoxScript : MonoBehaviour
 
             if (Input.GetKeyDown(KeyCode.Space) && !isPushingOrPulling && isGrounded)
             {  
-                rb.velocity = new Vector2(rb.velocity.x, jumpingPower);
+                FoxRb.velocity = new Vector2(FoxRb.velocity.x, jumpingPower);
             }
         }
 
         // if (Input.GetKeyUp(KeyCode.Space) && !isPushingOrPulling && isGrounded)
         // {
-        //     rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * 0.5f);
+        //     FoxRb.velocity = new Vector2(FoxRb.velocity.x, FoxRb.velocity.y * 0.5f);
         // }
     }
 
@@ -158,7 +160,7 @@ public class FoxScript : MonoBehaviour
         // if ( !CheckGround() && Horizontal != 0f) 
         // {
         //     IsWallSliding = true;
-        //     rb.velocity = new Vector2(rb.velocity.x, Mathf.Clamp(rb.velocity.y, -WallSlidingSpeed, float.MaxValue));
+        //     FoxRb.velocity = new Vector2(FoxRb.velocity.x, Mathf.Clamp(FoxRb.velocity.y, -WallSlidingSpeed, float.MaxValue));
         // }
         // else
         // {
@@ -188,7 +190,7 @@ public class FoxScript : MonoBehaviour
         wallJumpCount++;
 
         // Apply the jump force
-        rb.velocity = new Vector2(WallJumpingDirection * WallJumpingPower.x, WallJumpingPower.y);
+        FoxRb.velocity = new Vector2(WallJumpingDirection * WallJumpingPower.x, WallJumpingPower.y);
         WallJumpCounter = 0f;
 
         if(wallJumpCount == maxWallJumps)
