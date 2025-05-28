@@ -5,8 +5,8 @@ public class FoxScript : MonoBehaviour
 {
     public Rigidbody2D FoxRb;
     public float Horizontal;
-    private bool isJumping = false;
-    private bool isGrounded = false; 
+    public bool isJumping = false;
+    public bool isGrounded = true; 
     public bool isPushingOrPulling = false; //state for pushing/pulling
     private bool IsWallSliding = false;
     private bool IsWallJumping = false;
@@ -77,7 +77,14 @@ public class FoxScript : MonoBehaviour
         WallSlide();
         WallJump();
 
-        
+        if (!isGrounded)
+        {
+            isJumping = true;
+        }
+        else if (isGrounded)
+        {
+            isJumping = false;
+        }
     }
 
     private void FixedUpdate()
@@ -127,8 +134,13 @@ public class FoxScript : MonoBehaviour
             Horizontal = Input.GetAxis("Horizontal");
 
             if (Input.GetKeyDown(KeyCode.Space) && !isPushingOrPulling && isGrounded)
-            {  
+            {
+                
                 FoxRb.velocity = new Vector2(FoxRb.velocity.x, jumpingPower);
+            }
+            else if(!isGrounded)
+            {
+                
             }
         }
 

@@ -20,5 +20,7 @@ public class FoxAnimatorScript : MonoBehaviour
         FoxAnimator.SetFloat("speed", Mathf.Abs(foxScript.FoxRb.velocity.x));
         FoxAnimator.SetBool("isFox", playerSwitchScript.isFox);
         FoxAnimator.SetBool("isPushingOrPulling", foxScript.isPushingOrPulling);
+        FoxAnimator.SetBool("isJumping", foxScript.isJumping);
+        FoxAnimator.SetBool("isGrounded", foxScript.isGrounded);
     }
 }
