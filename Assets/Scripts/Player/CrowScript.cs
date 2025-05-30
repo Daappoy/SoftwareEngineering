@@ -5,9 +5,9 @@ using UnityEngine.UIElements;
 
 public class CrowScript : MonoBehaviour
 {
-    private Rigidbody2D rb;
+    public Rigidbody2D CrowRb;
     [SerializeField]
-    private bool isFlying = false;
+    public bool isFlying = false;
     [SerializeField]
     private bool isGrounded = false;
     [SerializeField]
@@ -21,7 +21,7 @@ public class CrowScript : MonoBehaviour
     [SerializeField]
     public GameObject GroundCheckGameObject;
     [SerializeField] private Transform groundCheck;
-    [SerializeField] private float checkRadius = 0.9f;
+    [SerializeField] private float checkRadius = 0.01f;
     [SerializeField] private LayerMask groundLayer;
 
     [Header("Push/Pull")]
@@ -38,7 +38,7 @@ public class CrowScript : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-        rb = GetComponent<Rigidbody2D>();
+        CrowRb = GetComponent<Rigidbody2D>();
     }
 
     // Update is called once per frame
@@ -47,30 +47,30 @@ public class CrowScript : MonoBehaviour
         float horizontalInput = Input.GetAxis("Horizontal");
 
         //move the player left and right (MOVEMENT)
-        rb.velocity = new Vector2(horizontalInput * speed, rb.velocity.y);
+        CrowRb.velocity = new Vector2(horizontalInput * speed, CrowRb.velocity.y);
 
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            rb.velocity = Vector2.up * flyStrength;
+            CrowRb.velocity = Vector2.up * flyStrength;
         }
         else if (Input.GetKey(KeyCode.Space))
         {
-            rb.gravityScale = 0.1f;
+            CrowRb.gravityScale = 0.1f;
         }
         else
         {
-            rb.gravityScale = 1f;
+            CrowRb.gravityScale = 1f;
         }
 
         // Flip the sprite based on the direction the player is moving (VISUAL)
         if (horizontalInput > 0)
         {
-            transform.localScale = new Vector3(0.5f, 0.5f, 0.5f); // Facing right
+            transform.localScale = new Vector3(0.75f, 0.75f, 0.75f); // Facing right
         }
         else if (horizontalInput < 0)
         {
-            transform.localScale = new Vector3(-0.5f, 0.5f, 0.5f); // Facing left
+            transform.localScale = new Vector3(-0.75f, 0.75f, 0.75f); // Facing left
         }
 
         // Perform a raycast below the player to check for pushable objects
@@ -93,6 +93,15 @@ public class CrowScript : MonoBehaviour
             box.GetComponent<FixedJoint2D>().enabled = false;
             box.GetComponent<BoxPull>().beingPushed = false;
         }
+
+        if (isGrounded)
+        {
+            isFlying = false; // Reset flying state when grounded
+        }
+        else
+        {
+            isFlying = true; // Set flying state when not grounded
+        }
     }
 
 
@@ -105,7 +114,7 @@ public class CrowScript : MonoBehaviour
     public void OnDetachBoost()
     {
         // Detach the crow from the fox and apply a boost
-        rb.velocity = new Vector2(rb.velocity.x, flyStrength * 2.5f);
+        CrowRb.velocity = new Vector2(CrowRb.velocity.x, flyStrength * 2.5f);
     }
 }
 
