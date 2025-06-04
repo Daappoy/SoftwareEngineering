@@ -2878,7 +2878,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   crowScript: {fileID: 1396101470}
   crowAnimator: {fileID: 1396101474}
-  attachController: {fileID: 0}
+  attachController: {fileID: 1396101473}
 --- !u!1001 &1457679685
 PrefabInstance:
   m_ObjectHideFlags: 0

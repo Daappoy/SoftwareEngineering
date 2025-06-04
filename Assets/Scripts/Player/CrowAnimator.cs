@@ -22,7 +22,7 @@ public class CrowAnimator : MonoBehaviour
         crowAnimator.SetFloat("YVelocity", crowScript.CrowRb.velocity.y);
         crowAnimator.SetBool("isFlying", crowScript.isFlying);
 
-        if( attachController.isAttached )
+        if( attachController.isAttached == true )
         {
             crowAnimator.SetBool("isAttached", true);
         }
