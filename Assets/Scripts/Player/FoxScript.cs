@@ -7,10 +7,11 @@ public class FoxScript : MonoBehaviour
     public float Horizontal;
     public bool isJumping = false;
     public bool isGrounded = true; 
+    [SerializeField] private bool isWalled;
     public bool isPushingOrPulling = false; //state for pushing/pulling
-    private bool IsWallSliding = false;
+    // private bool IsWallSliding = false;
     private bool IsWallJumping = false;
-    private float WallJumpingDirection;
+    // private float WallJumpingDirection;
     private bool IsFacingRight = true;
 
     public bool InputEnabled = true;
@@ -23,11 +24,10 @@ public class FoxScript : MonoBehaviour
     
 
     [Header("Ground/Wall Check")]
-    [SerializeField] private Transform groundCheck; 
+    [SerializeField] private BoxCollider2D groundCheck;
+    [SerializeField] private BoxCollider2D WallCheckBox;
     [SerializeField] private float groundcheckRadius = 0.2f;
     [SerializeField] private LayerMask groundLayer;
-    [SerializeField] private Transform WallCheck;
-    [SerializeField] private float wallcheckRadius = 0.9f;
     [SerializeField] private LayerMask WallLayer;
 
     [Header("Push/Pull")]
@@ -74,8 +74,8 @@ public class FoxScript : MonoBehaviour
             box.GetComponent<BoxPull>().beingPushed = false;
         }
 
-        WallSlide();
-        WallJump();
+        // WallSlide();
+        // WallJump();
 
         if (!isGrounded)
         {
@@ -85,12 +85,25 @@ public class FoxScript : MonoBehaviour
         {
             isJumping = false;
         }
+        if (InputEnabled == false)
+        {
+            FoxRb.velocity = new Vector2(0f, FoxRb.velocity.y);//berhentiin movement horizontal
+        }
+
+        if( WallCheckBox.IsTouchingLayers(WallLayer))
+        {
+            isWalled = true;
+        }
+        else
+        {
+            isWalled = false;
+        }
     }
 
     private void FixedUpdate()
     {
         Move();       
-        CheckGround();
+        checkGround();
     }
 
     private void Flip()
@@ -133,9 +146,8 @@ public class FoxScript : MonoBehaviour
         {
             Horizontal = Input.GetAxis("Horizontal");
 
-            if (Input.GetKeyDown(KeyCode.Space) && !isPushingOrPulling && isGrounded)
+            if (Input.GetKeyDown(KeyCode.Space) && !isPushingOrPulling && isGrounded || Input.GetKeyDown(KeyCode.Space) &&!isPushingOrPulling && isJumping && isWalled && !isGrounded)
             {
-                
                 FoxRb.velocity = new Vector2(FoxRb.velocity.x, jumpingPower);
             }
             else if(!isGrounded)
@@ -150,9 +162,16 @@ public class FoxScript : MonoBehaviour
         // }
     }
 
-    private bool CheckGround()
+    private bool checkGround()
     {
-        isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundcheckRadius, groundLayer);
+        if (groundCheck.IsTouchingLayers(groundLayer))
+        {
+            isGrounded = true;
+        }
+        else
+        {
+            isGrounded = false;
+        }
         return isGrounded;
     }
 
@@ -162,68 +181,68 @@ public class FoxScript : MonoBehaviour
         Gizmos.DrawLine(transform.position, (Vector2)transform.position + Vector2.right * transform.localScale.x * distance);
     }
 
-    private bool IsWalled()
-    {
-        return Physics2D.OverlapCircle(WallCheck.position, wallcheckRadius, WallLayer);
-    }
+    // private bool IsWalled()
+    // {
+    //     return Physics2D.OverlapCircle(WallCheck.position, wallcheckRadius, WallLayer);
+    // }
 
-    private void WallSlide()
-    {
-        // if ( !CheckGround() && Horizontal != 0f) 
-        // {
-        //     IsWallSliding = true;
-        //     FoxRb.velocity = new Vector2(FoxRb.velocity.x, Mathf.Clamp(FoxRb.velocity.y, -WallSlidingSpeed, float.MaxValue));
-        // }
-        // else
-        // {
-        //     IsWallSliding = false;
-        // }
-    }
+    // private void WallSlide()
+    // {
+    //     // if ( !checkGround() && Horizontal != 0f) 
+    //     // {
+    //     //     IsWallSliding = true;
+    //     //     FoxRb.velocity = new Vector2(FoxRb.velocity.x, Mathf.Clamp(FoxRb.velocity.y, -WallSlidingSpeed, float.MaxValue));
+    //     // }
+    //     // else
+    //     // {
+    //     //     IsWallSliding = false;
+    //     // }
+    // }
 
-    private void WallJump()
-{
-    if (IsWallSliding) 
-    {
-        WallJumpingDirection = IsFacingRight ? -1f : 1f; // Ensure direction is set correctly
-        IsWallJumping = false;
-        WallJumpCounter = WallJumpingTime;
-        CancelInvoke(nameof(StopWallJumping));
-    }
-    else
-    {
-        WallJumpCounter -= Time.deltaTime;
-    }
+//     private void WallJump()
+// {
+//     if (IsWallSliding) 
+//     {
+//         WallJumpingDirection = IsFacingRight ? -1f : 1f; // Ensure direction is set correctly
+//         IsWallJumping = false;
+//         WallJumpCounter = WallJumpingTime;
+//         CancelInvoke(nameof(StopWallJumping));
+//     }
+//     else
+//     {
+//         WallJumpCounter -= Time.deltaTime;
+//     }
 
-    if (Input.GetKeyDown(KeyCode.Space) && WallJumpCounter > 0f && wallJumpCount < maxWallJumps)
-    {
-        IsWallJumping = true;
+//     if (Input.GetKeyDown(KeyCode.Space) && WallJumpCounter > 0f && wallJumpCount < maxWallJumps)
+//     {
+//         IsWallJumping = true;
 
-        // Increment the wall jump counter
-        wallJumpCount++;
+//         // Increment the wall jump counter
+//         wallJumpCount++;
 
-        // Apply the jump force
-        FoxRb.velocity = new Vector2(WallJumpingDirection * WallJumpingPower.x, WallJumpingPower.y);
-        WallJumpCounter = 0f;
+//         // Apply the jump force
+//         FoxRb.velocity = new Vector2(WallJumpingDirection * WallJumpingPower.x, WallJumpingPower.y);
+//         WallJumpCounter = 0f;
 
-        if(wallJumpCount == maxWallJumps)
-        {
-            Debug.Log("Max wall jumps reached");
-        }
+//         if(wallJumpCount == maxWallJumps)
+//         {
+//             Debug.Log("Max wall jumps reached");
+//         }
 
-        // Ensure the player faces the correct direction after jumping
-        if ((WallJumpingDirection > 0 && !IsFacingRight) || (WallJumpingDirection < 0 && IsFacingRight))
-        {
-            Flip();
-        }
+//         // Ensure the player faces the correct direction after jumping
+//         if ((WallJumpingDirection > 0 && !IsFacingRight) || (WallJumpingDirection < 0 && IsFacingRight))
+//         {
+//             Flip();
+//         }
 
-        Invoke(nameof(StopWallJumping), WallJumpDuration);
-    }
-}
+//         Invoke(nameof(StopWallJumping), WallJumpDuration);
+//     }
+// }
 
-    private void StopWallJumping()
-    {
-        IsWallJumping = false; // Allow movement again
-    }
+//     private void StopWallJumping()
+//     {
+//         IsWallJumping = false; // Allow movement again
+//     }
 
     
 }
