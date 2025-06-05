@@ -13,7 +13,6 @@ public class AttachController : MonoBehaviour
 
     [Header("crowScript")]
     [SerializeField] public CrowScript crowScript;
-    [SerializeField] public BoxCollider2D crowCollider;
     [SerializeField] public Rigidbody2D CrowRb;
     [SerializeField] public bool isAttached = false;
     [SerializeField] private Transform crowTransform;
@@ -39,19 +38,17 @@ public class AttachController : MonoBehaviour
     public void AttachToFox()
     {
         isAttached = true;
-        CrowRb.mass = 0;
+        CrowRb.isKinematic = true;
         crowTransform.transform.parent = foxTransform;
-        crowCollider.enabled = false; 
     }
 
     public void DetachFromFox()
     {
         Debug.Log("detached from fox, now playing as a crow");
         isAttached = false;
-        CrowRb.mass = 1;
+        CrowRb.isKinematic = false;
         crowTransform.transform.parent = null;
         crowScript.OnDetachBoost();
-        crowCollider.enabled = true; 
     }  
 
     void Update()
