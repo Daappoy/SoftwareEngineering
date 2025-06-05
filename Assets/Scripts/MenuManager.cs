@@ -12,7 +12,7 @@ public class MenuManager : MonoBehaviour
     {
         ShowOnly(mainMenu);
     }
-
+    
     private void Awake()
     {
         // Initialize the array of all menu objects
@@ -32,14 +32,9 @@ public class MenuManager : MonoBehaviour
     public void OpenSettings() => ShowOnly(settings);
     public void OpenMainMenu() => ShowOnly(mainMenu);
     public void OpenLevels() => ShowOnly(levels);
-
+    
     public void Quit()
     {
         Application.Quit();
-    }
-    
-    public void LoadLevel(string levelName)
-    {
-        UnityEngine.SceneManagement.SceneManager.LoadScene(levelName);
     }
 }
