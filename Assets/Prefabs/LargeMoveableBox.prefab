@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3111100955979021850}
   - component: {fileID: 8090168907261103357}
   - component: {fileID: 5507004963428677777}
-  - component: {fileID: 956422481039506568}
+  - component: {fileID: 4619703927076582178}
   m_Layer: 7
   m_Name: LargeMoveableBox
   m_TagString: Pushable
@@ -147,8 +147,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   beingPushed: 0
---- !u!60 &956422481039506568
-PolygonCollider2D:
+--- !u!61 &4619703927076582178
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -179,7 +179,7 @@ PolygonCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: -0.03949085}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -189,24 +189,6 @@ PolygonCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Points:
-    m_Paths:
-    - - {x: 0.1551483, y: 0.080296785}
-      - {x: 0.02076888, y: 0.08165574}
-      - {x: -0.105, y: 0.0709925}
-      - {x: -0.14733195, y: 0.0529595}
-      - {x: -0.16001159, y: 0.039762642}
-      - {x: -0.16692376, y: 0.019324481}
-      - {x: -0.1785059, y: -0.01881966}
-      - {x: -0.19676852, y: -0.11977284}
-      - {x: -0.19443947, y: -0.1616814}
-      - {x: 0.195, y: -0.16}
-      - {x: 0.19770956, y: -0.14242567}
-      - {x: 0.1973443, y: -0.12897998}
-      - {x: 0.18653822, y: -0.07362172}
-      - {x: 0.18602204, y: -0.02965945}
-      - {x: 0.17758918, y: -0.011833489}
-      - {x: 0.16834784, y: 0.015616059}
-      - {x: 0.15504628, y: 0.036864534}
-      - {x: 0.15599233, y: 0.06646561}
-  m_UseDelaunayMesh: 0
+  serializedVersion: 2
+  m_Size: {x: 0.39, y: 0.2410183}
+  m_EdgeRadius: 0
