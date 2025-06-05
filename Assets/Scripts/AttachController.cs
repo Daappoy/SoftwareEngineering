@@ -37,18 +37,21 @@ public class AttachController : MonoBehaviour
     }
     public void AttachToFox()
     {
+        Debug.Log("isattaced set to true");
         isAttached = true;
-        CrowRb.isKinematic = true;
-        crowTransform.transform.parent = foxTransform;
+        // CrowRb.isKinematic = true;
+        // crowTransform.transform.parent = foxTransform;
+         CrowRb.mass = 0f;
     }
 
     public void DetachFromFox()
     {
         Debug.Log("detached from fox, now playing as a crow");
         isAttached = false;
-        CrowRb.isKinematic = false;
-        crowTransform.transform.parent = null;
+        // CrowRb.isKinematic = false;
+        // crowTransform.transform.parent = null;
         crowScript.OnDetachBoost();
+        CrowRb.mass = 1f;
     }  
 
     void Update()
@@ -57,9 +60,10 @@ public class AttachController : MonoBehaviour
         {
             DetachFromFox();
         }
-        if (isAttached)
+        if (isAttached) 
         {
             crowTransform.position = foxTransform.position + crowOffset;
-        }
+           
+        } 
     }
 }
