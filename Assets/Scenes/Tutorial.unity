@@ -674,7 +674,7 @@ MonoBehaviour:
   groundcheckRadius: 0.9
   groundLayer:
     serializedVersion: 2
-    m_Bits: 192
+    m_Bits: 448
   WallLayer:
     serializedVersion: 2
     m_Bits: 384
@@ -705,7 +705,7 @@ Rigidbody2D:
   m_LinearDrag: 0
   m_AngularDrag: 1
   m_GravityScale: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: c900a3f0e1e8adf4cbba6aa745aa92c3, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -2083,10 +2083,10 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.006419182, y: -0.44290447}
+  m_Offset: {x: -0.018963948, y: -0.51124406}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -2097,7 +2097,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.9293928, y: 0.114191055}
+  m_Size: {x: 0.44125137, y: 0.25087017}
   m_EdgeRadius: 0
 --- !u!1 &1113861702
 GameObject:
@@ -2504,7 +2504,7 @@ GameObject:
   - component: {fileID: 1318967549}
   - component: {fileID: 1318967551}
   - component: {fileID: 1318967552}
-  m_Layer: 6
+  m_Layer: 8
   m_Name: LeftWall
   m_TagString: Ground
   m_Icon: {fileID: 0}
@@ -3034,7 +3034,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0.0074448586}
+  m_Offset: {x: -0.001952529, y: -0.023796529}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -3045,7 +3045,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 0.9851103}
+  m_Size: {x: 0.82426906, y: 0.9226275}
   m_EdgeRadius: 0
 --- !u!114 &1396101470
 MonoBehaviour:
@@ -3065,7 +3065,7 @@ MonoBehaviour:
   isGrabItem: 0
   speed: 3
   flyStrength: 3
-  GroundCheckGameObject: {fileID: 987159254}
+  GroundCheckGameObject: {fileID: 987159256}
   groundCheck: {fileID: 987159255}
   checkRadius: 0.9
   groundLayer:
@@ -3420,7 +3420,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.66034985, y: 0.34725714}
+  m_Offset: {x: -0.39198732, y: 0.34725714}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -3431,7 +3431,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.59264565, y: 0.9011793}
+  m_Size: {x: 2.69732, y: 0.9011793}
   m_EdgeRadius: 0
 --- !u!1001 &1619179665
 PrefabInstance:

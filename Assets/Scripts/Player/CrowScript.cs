@@ -19,7 +19,7 @@ public class CrowScript : MonoBehaviour
 
     [Header("Ground Check")]
     [SerializeField]
-    public GameObject GroundCheckGameObject;
+    public BoxCollider2D GroundCheckGameObject;
     [SerializeField] private Transform groundCheck;
     [SerializeField] private float checkRadius = 0.01f;
     [SerializeField] private LayerMask groundLayer;
@@ -107,8 +107,15 @@ public class CrowScript : MonoBehaviour
 
     private void FixedUpdate()
     {
-        isGrounded = Physics2D.OverlapCircle(groundCheck.position, checkRadius, groundLayer);
-        // Check if the player is on the ground 
+        if (GroundCheckGameObject.IsTouchingLayers(groundLayer))
+        {
+            isGrounded = true;
+        }
+        else
+        {
+            isGrounded = false;
+        }
+        
     }
 
     public void OnDetachBoost()
