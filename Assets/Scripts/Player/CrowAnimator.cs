@@ -8,6 +8,8 @@ public class CrowAnimator : MonoBehaviour
     public CrowScript crowScript;
     [SerializeField]
     private Animator crowAnimator;
+    [SerializeField]
+    private AttachController attachController;
     // Start is called before the first frame update
     void Start()
     {
@@ -19,5 +21,14 @@ public class CrowAnimator : MonoBehaviour
     {
         crowAnimator.SetFloat("YVelocity", crowScript.CrowRb.velocity.y);
         crowAnimator.SetBool("isFlying", crowScript.isFlying);
+
+        if( attachController.isAttached == true )
+        {
+            crowAnimator.SetBool("isAttached", true);
+        }
+        else if (attachController.isAttached == false) 
+        {
+            crowAnimator.SetBool("isAttached", false);
+        }
     }
 }
