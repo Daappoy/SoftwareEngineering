@@ -12,7 +12,6 @@ public class CrowScript : MonoBehaviour
     private bool isGrounded = false;
     [SerializeField]
     private bool isGrabItem = false;
-    public BoxCollider2D groundCheckCollider;
 
     [Header("crow Movement")]
     [SerializeField] private float speed = 5f;
@@ -40,7 +39,6 @@ public class CrowScript : MonoBehaviour
     void Awake()
     {
         CrowRb = GetComponent<Rigidbody2D>();
-        GroundCheckGameObject.GetComponent<BoxCollider2D>();
     }
 
     // Update is called once per frame
@@ -109,15 +107,7 @@ public class CrowScript : MonoBehaviour
 
     private void FixedUpdate()
     {
-        
-        if (groundCheckCollider != null && groundCheckCollider.IsTouchingLayers(groundLayer))
-        {
-            isGrounded = true; // Check if the crow is touching the ground layer
-        }
-        else
-        {
-            isGrounded = false; // Reset grounded state if not touching the ground layer
-        }
+        isGrounded = Physics2D.OverlapCircle(groundCheck.position, checkRadius, groundLayer);
         // Check if the player is on the ground 
     }
 

@@ -1,20 +1,16 @@
 using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class FoxScript : MonoBehaviour
 {
     public Rigidbody2D FoxRb;
-    public BoxCollider2D FoxCollider;
-    public BoxCollider2D WallCollider;
     public float Horizontal;
     public bool isJumping = false;
-    public bool isGrounded = false; 
-    public bool onWall = false; 
+    public bool isGrounded = true; 
     public bool isPushingOrPulling = false; //state for pushing/pulling
-    // private bool IsWallSliding = false;
+    private bool IsWallSliding = false;
     private bool IsWallJumping = false;
-    // private float WallJumpingDirection;
+    private float WallJumpingDirection;
     private bool IsFacingRight = true;
 
     public bool InputEnabled = true;
@@ -27,10 +23,9 @@ public class FoxScript : MonoBehaviour
     
 
     [Header("Ground/Wall Check")]
-    [SerializeField] private BoxCollider2D groundCheck; 
-    [SerializeField] private float groundcheckRadius = 1f;
+    [SerializeField] private Transform groundCheck; 
+    [SerializeField] private float groundcheckRadius = 0.2f;
     [SerializeField] private LayerMask groundLayer;
-    [SerializeField] private LayerMask WallLayerMask;
     [SerializeField] private Transform WallCheck;
     [SerializeField] private float wallcheckRadius = 0.9f;
     [SerializeField] private LayerMask WallLayer;
@@ -44,7 +39,7 @@ public class FoxScript : MonoBehaviour
     [SerializeField] private int wallJumpCount = 0;
     [SerializeField] private int maxWallJumps = 3;
     [SerializeField] private float WallJumpingTime = 0.2f;
-    // [SerializeField] private float WallSlidingSpeed = 2f;
+    [SerializeField] private float WallSlidingSpeed = 2f;
     [SerializeField] private float WallJumpCounter = 0;
     [SerializeField] private float WallJumpDuration = 0.4f;
     [SerializeField] private Vector2 WallJumpingPower = new Vector2(8f, 16f);
@@ -79,8 +74,8 @@ public class FoxScript : MonoBehaviour
             box.GetComponent<BoxPull>().beingPushed = false;
         }
 
-        // WallSlide();
-        // WallJump();
+        WallSlide();
+        WallJump();
 
         if (!isGrounded)
         {
@@ -89,19 +84,6 @@ public class FoxScript : MonoBehaviour
         else if (isGrounded)
         {
             isJumping = false;
-        }
-
-        if (WallCollider.IsTouchingLayers(WallLayerMask))
-        {
-            onWall = true;
-        }
-        else
-        {
-            onWall = false;
-        }
-        if (InputEnabled == false)
-        {
-            FoxRb.velocity = new Vector2(0f, FoxRb.velocity.y);
         }
     }
 
@@ -133,11 +115,15 @@ public class FoxScript : MonoBehaviour
         if (isPushingOrPulling == true)
         {
             FoxRb.velocity = new Vector2(Horizontal * reducedSpeed, FoxRb.velocity.y);
+            
         }
         else
         {
             Flip();
         }
+        
+
+        
     }
 
     private void ProcessInputs()
@@ -147,8 +133,9 @@ public class FoxScript : MonoBehaviour
         {
             Horizontal = Input.GetAxis("Horizontal");
 
-            if (Input.GetKeyDown(KeyCode.Space) && !isPushingOrPulling && isGrounded && !onWall || onWall == true && Input.GetKeyDown(KeyCode.Space) && !isPushingOrPulling)
+            if (Input.GetKeyDown(KeyCode.Space) && !isPushingOrPulling && isGrounded)
             {
+                
                 FoxRb.velocity = new Vector2(FoxRb.velocity.x, jumpingPower);
             }
             else if(!isGrounded)
@@ -156,27 +143,16 @@ public class FoxScript : MonoBehaviour
                 
             }
         }
+
+        // if (Input.GetKeyUp(KeyCode.Space) && !isPushingOrPulling && isGrounded)
+        // {
+        //     FoxRb.velocity = new Vector2(FoxRb.velocity.x, FoxRb.velocity.y * 0.5f);
+        // }
     }
 
     private bool CheckGround()
     {
-        if(groundCheck.IsTouchingLayers(groundLayer))
-        {
-            isGrounded = true;
-        }
-        else
-        {
-            isGrounded = false;
-        }
-        // isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundcheckRadius, groundLayer);
-        // if (Physics2D.OverlapCircle(groundCheck.position, groundcheckRadius, groundLayer))
-        // {
-        //     isGrounded = true;
-        // }
-        // else
-        // {
-        //     isGrounded = false;
-        // }
+        isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundcheckRadius, groundLayer);
         return isGrounded;
     }
 
@@ -186,66 +162,68 @@ public class FoxScript : MonoBehaviour
         Gizmos.DrawLine(transform.position, (Vector2)transform.position + Vector2.right * transform.localScale.x * distance);
     }
 
-    // private bool IsWalled()
-    // {
-    //     return Physics2D.OverlapCircle(WallCheck.position, wallcheckRadius, WallLayer);
-    // }
+    private bool IsWalled()
+    {
+        return Physics2D.OverlapCircle(WallCheck.position, wallcheckRadius, WallLayer);
+    }
 
-    // private void WallSlide()
-    // {
-    //     // if ( !CheckGround() && Horizontal != 0f) 
-    //     // {
-    //     //     IsWallSliding = true;
-    //     //     FoxRb.velocity = new Vector2(FoxRb.velocity.x, Mathf.Clamp(FoxRb.velocity.y, -WallSlidingSpeed, float.MaxValue));
-    //     // }
-    //     // else
-    //     // {
-    //     //     IsWallSliding = false;
-    //     // }
-    // }
+    private void WallSlide()
+    {
+        // if ( !CheckGround() && Horizontal != 0f) 
+        // {
+        //     IsWallSliding = true;
+        //     FoxRb.velocity = new Vector2(FoxRb.velocity.x, Mathf.Clamp(FoxRb.velocity.y, -WallSlidingSpeed, float.MaxValue));
+        // }
+        // else
+        // {
+        //     IsWallSliding = false;
+        // }
+    }
 
-//     private void WallJump()
-// {
-//     if (IsWallSliding) 
-//     {
-//         WallJumpingDirection = IsFacingRight ? -1f : 1f; // Ensure direction is set correctly
-//         IsWallJumping = false;
-//         WallJumpCounter = WallJumpingTime;
-//         CancelInvoke(nameof(StopWallJumping));
-//     }
-//     else
-//     {
-//         WallJumpCounter -= Time.deltaTime;
-//     }
+    private void WallJump()
+{
+    if (IsWallSliding) 
+    {
+        WallJumpingDirection = IsFacingRight ? -1f : 1f; // Ensure direction is set correctly
+        IsWallJumping = false;
+        WallJumpCounter = WallJumpingTime;
+        CancelInvoke(nameof(StopWallJumping));
+    }
+    else
+    {
+        WallJumpCounter -= Time.deltaTime;
+    }
 
-//     if (Input.GetKeyDown(KeyCode.Space) && WallJumpCounter > 0f && wallJumpCount < maxWallJumps)
-//     {
-//         IsWallJumping = true;
+    if (Input.GetKeyDown(KeyCode.Space) && WallJumpCounter > 0f && wallJumpCount < maxWallJumps)
+    {
+        IsWallJumping = true;
 
-//         // Increment the wall jump counter
-//         wallJumpCount++;
+        // Increment the wall jump counter
+        wallJumpCount++;
 
-//         // Apply the jump force
-//         FoxRb.velocity = new Vector2(WallJumpingDirection * WallJumpingPower.x, WallJumpingPower.y);
-//         WallJumpCounter = 0f;
+        // Apply the jump force
+        FoxRb.velocity = new Vector2(WallJumpingDirection * WallJumpingPower.x, WallJumpingPower.y);
+        WallJumpCounter = 0f;
 
-//         if(wallJumpCount == maxWallJumps)
-//         {
-//             Debug.Log("Max wall jumps reached");
-//         }
+        if(wallJumpCount == maxWallJumps)
+        {
+            Debug.Log("Max wall jumps reached");
+        }
 
-//         // Ensure the player faces the correct direction after jumping
-//         if ((WallJumpingDirection > 0 && !IsFacingRight) || (WallJumpingDirection < 0 && IsFacingRight))
-//         {
-//             Flip();
-//         }
+        // Ensure the player faces the correct direction after jumping
+        if ((WallJumpingDirection > 0 && !IsFacingRight) || (WallJumpingDirection < 0 && IsFacingRight))
+        {
+            Flip();
+        }
 
-//         Invoke(nameof(StopWallJumping), WallJumpDuration);
-//     }
-// }
+        Invoke(nameof(StopWallJumping), WallJumpDuration);
+    }
+}
 
-//     private void StopWallJumping()
-//     {
-//         IsWallJumping = false; // Allow movement again
-//     }
+    private void StopWallJumping()
+    {
+        IsWallJumping = false; // Allow movement again
+    }
+
+    
 }

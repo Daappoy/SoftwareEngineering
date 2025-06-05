@@ -669,31 +669,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5aa750dd687c544448da4a0d8542e8c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FoxRb: {fileID: 253601435}
-  FoxCollider: {fileID: 253601433}
-  WallCollider: {fileID: 1478324456}
+  FoxRb: {fileID: 0}
   Horizontal: 0
   isJumping: 0
   isGrounded: 1
-  onWall: 0
   isPushingOrPulling: 0
   InputEnabled: 1
   speed: 5
   reducedSpeed: 4
   jumpingPower: 7
-  groundCheck: {fileID: 1817448097}
+  groundCheck: {fileID: 1817448096}
   groundcheckRadius: 0.9
   groundLayer:
     serializedVersion: 2
     m_Bits: 192
-  WallLayerMask:
-    serializedVersion: 2
-    m_Bits: 64
   WallCheck: {fileID: 1478324455}
   wallcheckRadius: 0.17
   WallLayer:
     serializedVersion: 2
-    m_Bits: 128
+    m_Bits: 384
   distance: 1
   InteractMask:
     serializedVersion: 2
@@ -701,6 +695,7 @@ MonoBehaviour:
   wallJumpCount: 0
   maxWallJumps: 3
   WallJumpingTime: 0.2
+  WallSlidingSpeed: 1
   WallJumpCounter: 0
   WallJumpDuration: 0.4
   WallJumpingPower: {x: 8, y: 7}
@@ -720,7 +715,7 @@ Rigidbody2D:
   m_LinearDrag: 0
   m_AngularDrag: 1
   m_GravityScale: 1
-  m_Material: {fileID: 6200000, guid: c900a3f0e1e8adf4cbba6aa745aa92c3, type: 2}
+  m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -977,7 +972,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 6
+  orthographic size: 7.5
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -1603,22 +1598,6 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-  - eventID: 4
-    callback:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 643106894}
-          m_TargetAssemblyTypeName: UnityEngine.UI.Image, UnityEngine.UI
-          m_MethodName: set_sprite
-          m_Mode: 2
-          m_Arguments:
-            m_ObjectArgument: {fileID: 21300000, guid: 3904d9a0579b5f54fab792b7df7bcd00, type: 3}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Sprite, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
 --- !u!1 &659932080
 GameObject:
   m_ObjectHideFlags: 0
@@ -2184,22 +2163,6 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-  - eventID: 4
-    callback:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 822507905}
-          m_TargetAssemblyTypeName: UnityEngine.UI.Image, UnityEngine.UI
-          m_MethodName: set_sprite
-          m_Mode: 2
-          m_Arguments:
-            m_ObjectArgument: {fileID: 21300000, guid: a0c0891afc327f445b2974467b6f1216, type: 3}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Sprite, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
 --- !u!1 &835020656
 GameObject:
   m_ObjectHideFlags: 0
@@ -2336,7 +2299,7 @@ BoxCollider2D:
   m_GameObject: {fileID: 987159254}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 6200000, guid: c900a3f0e1e8adf4cbba6aa745aa92c3, type: 2}
+  m_Material: {fileID: 6200000, guid: 3b8e2a31910126f4b8ecfc7b8fe1fa3b, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -2356,10 +2319,10 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.041604027, y: -0.44945318}
+  m_Offset: {x: 0.006419182, y: -0.44290447}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -2370,7 +2333,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.21341258, y: 0.28445554}
+  m_Size: {x: 0.9293928, y: 0.114191055}
   m_EdgeRadius: 0
 --- !u!1 &1113861702
 GameObject:
@@ -3217,7 +3180,6 @@ MonoBehaviour:
   isFlying: 0
   isGrounded: 0
   isGrabItem: 0
-  groundCheckCollider: {fileID: 987159256}
   speed: 3
   flyStrength: 3
   GroundCheckGameObject: {fileID: 987159254}
@@ -3225,7 +3187,7 @@ MonoBehaviour:
   checkRadius: 0.9
   groundLayer:
     serializedVersion: 2
-    m_Bits: 192
+    m_Bits: 64
   distance: 1
   InteractMask:
     serializedVersion: 2
@@ -3574,10 +3536,10 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.46022367, y: 0.48905683}
+  m_Offset: {x: -0.50095904, y: 0.5082067}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -3588,7 +3550,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 2.7122145, y: 0.6373973}
+  m_Size: {x: 0.9999993, y: 0.9629445}
   m_EdgeRadius: 0
 --- !u!1 &1578481438
 GameObject:
@@ -3997,7 +3959,7 @@ BoxCollider2D:
   m_GameObject: {fileID: 1817448095}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 6200000, guid: c900a3f0e1e8adf4cbba6aa745aa92c3, type: 2}
+  m_Material: {fileID: 6200000, guid: 3b8e2a31910126f4b8ecfc7b8fe1fa3b, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -4017,10 +3979,10 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.1526742, y: -0.038351536}
+  m_Offset: {x: 0.010194659, y: 0.112244755}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -4031,7 +3993,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.34579945, y: 0.4836998}
+  m_Size: {x: 0.8527591, y: 0.25444}
   m_EdgeRadius: 0
 --- !u!1 &1833531015
 GameObject:
