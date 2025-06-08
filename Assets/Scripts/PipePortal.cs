@@ -4,13 +4,50 @@ using UnityEngine;
 
 public class PipePortal : MonoBehaviour
 {
-    public GameObject PortalLinked; //Target location
+    [SerializeField]
+    private GameObject PortalLinked;
+    [SerializeField]
+    private GameObject FkeyPrompt; //UI element to show the player can interact
+    private bool playerInTrigger = false;
+    private Collider2D playerCollider;
 
-    private void OnTriggerEnter2D(Collider2D other) //OnEnter move
+
+    private void Start()
     {
-        if (other.tag == "Player")
+        FkeyPrompt.SetActive(false);
+        if (PortalLinked == null)
         {
-            other.transform.position = PortalLinked.transform.position; //literally just move
+            Debug.LogError("PortalLinked is not assigned in PipePortal script on " + gameObject.name);
         }
     }
+
+    private void Update()
+    {
+        if(playerInTrigger && Input.GetKeyDown(KeyCode.F) && playerCollider != null)
+        {
+            playerCollider.transform.position = PortalLinked.transform.position;
+        }
+    }
+
+    private void OnTriggerStay2D(Collider2D other) //OnStay move
+    {
+        if (other.CompareTag("Player")) //If player is in the interact space
+        {
+            FkeyPrompt.SetActive(true); //Show the prompt
+            playerInTrigger = true; //Set the flag to true
+            playerCollider = other; //Store the player's collider for later use
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D other) //OnExit hide prompt
+    {
+        if (other.CompareTag("Player"))
+        {
+            FkeyPrompt.SetActive(false); //Hide the prompt
+            playerInTrigger = false; //Set the flag to false
+            playerCollider = null; //Clear the player's collider
+        }
+    }
+
+    
 }
