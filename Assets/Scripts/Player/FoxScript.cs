@@ -58,7 +58,7 @@ public class FoxScript : MonoBehaviour
         RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.right * transform.localScale.x, distance, InteractMask);
 
         // If a pushable object is detected and the player presses "E", attach it to the player using a FixedJoint2D
-        if (hit.collider != null && hit.collider.CompareTag("Pushable") && Input.GetKeyDown(KeyCode.E))
+        if (hit.collider != null && hit.collider.CompareTag("Pushable") && Input.GetKeyDown(KeyCode.E) && InputEnabled)
         {
             isPushingOrPulling = true;
             box = hit.collider.gameObject;
@@ -67,7 +67,7 @@ public class FoxScript : MonoBehaviour
             box.GetComponent<BoxPull>().beingPushed = true;
             box.GetComponent<FixedJoint2D>().connectedBody = this.GetComponent<Rigidbody2D>();
         }
-        else if (Input.GetKeyUp(KeyCode.E) && hit.collider != null) // When the player releases "E", detach the object by disabling the FixedJoint2D
+        else if (Input.GetKeyUp(KeyCode.E) && hit.collider != null && InputEnabled) // When the player releases "E", detach the object by disabling the FixedJoint2D
         {
             isPushingOrPulling = false;
             box.GetComponent<FixedJoint2D>().enabled = false;

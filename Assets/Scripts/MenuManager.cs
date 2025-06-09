@@ -31,7 +31,11 @@ public class MenuManager : MonoBehaviour
     // Public methods for specific menus
     public void OpenSettings() => ShowOnly(settings);
     public void OpenMainMenu() => ShowOnly(mainMenu);
-    public void OpenLevels() => ShowOnly(levels);
+    public void OpenLevels()
+    {
+        ShowOnly(levels);
+        Time.timeScale = 1f;
+    }
     
     public void Quit()
     {

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class ExitDoorScript : MonoBehaviour
 {
+    public GameObject LevelCompleteUI;
     [SerializeField] private GameObject EKeyPrompt; // UI element to show the player can interact
     private bool playerInTrigger = false; // Flag to check if the player is in the trigger area
     private Collider2D playerCollider; // Store the player's collider for later use
@@ -12,6 +13,7 @@ public class ExitDoorScript : MonoBehaviour
     public bool isAttached => attachController.isAttached; // Property to check if the crow is attached to the fox
     void Start()
     {
+        LevelCompleteUI.SetActive(false); // Hide the level complete UI initially
         EKeyPrompt.SetActive(false); // Hide the prompt initially
         if (EKeyPrompt == null)
         {
@@ -27,6 +29,9 @@ public class ExitDoorScript : MonoBehaviour
             Debug.Log("Player has exited through the door.");
             // Here you can add logic to handle what happens when the player exits through the door
             // For example, loading a new scene or showing a message
+            LevelCompleteUI.SetActive(true); // Show the level complete UI
+            Time.timeScale = 0f; // Pause the game
+            EKeyPrompt.SetActive(false); // Hide the prompt after interaction
         }
         else if (playerInTrigger && Input.GetKeyDown(KeyCode.E) && playerCollider != null && !isAttached)
         {

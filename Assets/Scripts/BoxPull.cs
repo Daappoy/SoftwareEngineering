@@ -30,7 +30,6 @@ public class BoxPull : MonoBehaviour
             // Freeze X movement to keep the box stationary
             // rb.constraints = RigidbodyConstraints2D.FreezePositionX;
             rb.constraints = RigidbodyConstraints2D.FreezePositionX;
-            rb.constraints = RigidbodyConstraints2D.FreezeRotation;
         }
         else
         {

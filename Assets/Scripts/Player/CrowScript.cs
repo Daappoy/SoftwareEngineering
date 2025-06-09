@@ -12,6 +12,7 @@ public class CrowScript : MonoBehaviour
     private bool isGrounded = false;
     [SerializeField]
     private bool isGrabItem = false;
+    public bool CrowInputEnabled = false;
 
     [Header("crow Movement")]
     [SerializeField] private float speed = 5f;
@@ -30,6 +31,8 @@ public class CrowScript : MonoBehaviour
     private GameObject box;
     private bool isPushingOrPulling = false; //state for pushing/pulling
 
+    private float horizontalInput = 0f;
+
 
 
     [Header("Player Switch")]
@@ -44,33 +47,40 @@ public class CrowScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        float horizontalInput = Input.GetAxis("Horizontal");
+        if (CrowInputEnabled)
+        {
+            horizontalInput = Input.GetAxis("Horizontal");
+            if (!isGrounded && isFlying)
+            {
+                CrowRb.velocity = new Vector2(horizontalInput * speed, CrowRb.velocity.y);
+            }
+            else if (isGrounded && !isFlying)
+            {
+                CrowRb.velocity = new Vector2(0f, CrowRb.velocity.y);
+            }
 
-        //move the player left and right (MOVEMENT)
-        CrowRb.velocity = new Vector2(horizontalInput * speed, CrowRb.velocity.y);
+            // Flip the sprite based on the direction the player is moving (VISUAL)
+            if (horizontalInput > 0)
+            {
+                transform.localScale = new Vector3(0.75f, 0.75f, 0.75f); // Facing right
+            }
+            else if (horizontalInput < 0)
+            {
+                transform.localScale = new Vector3(-0.75f, 0.75f, 0.75f); // Facing left
+            }
 
-
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            CrowRb.velocity = Vector2.up * flyStrength;
-        }
-        else if (Input.GetKey(KeyCode.Space))
-        {
-            CrowRb.gravityScale = 0.1f;
-        }
-        else
-        {
-            CrowRb.gravityScale = 1f;
-        }
-
-        // Flip the sprite based on the direction the player is moving (VISUAL)
-        if (horizontalInput > 0)
-        {
-            transform.localScale = new Vector3(0.75f, 0.75f, 0.75f); // Facing right
-        }
-        else if (horizontalInput < 0)
-        {
-            transform.localScale = new Vector3(-0.75f, 0.75f, 0.75f); // Facing left
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                CrowRb.velocity = Vector2.up * flyStrength;
+            }
+            else if (Input.GetKey(KeyCode.Space))
+            {
+                CrowRb.gravityScale = 0.1f;
+            }
+            else
+            {
+                CrowRb.gravityScale = 1f;
+            }
         }
 
         // Perform a raycast below the player to check for pushable objects
@@ -78,7 +88,7 @@ public class CrowScript : MonoBehaviour
         RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, distance, InteractMask);
 
         // If a pushable object is detected and the player presses "E", attach it to the player using a FixedJoint2D
-        if (hit.collider != null && hit.collider.CompareTag("Pushable") && Input.GetKeyDown(KeyCode.E))
+        if (hit.collider != null && hit.collider.CompareTag("Pushable") && Input.GetKeyDown(KeyCode.E) && CrowInputEnabled)
         {
             isPushingOrPulling = true;
             box = hit.collider.gameObject;
@@ -88,7 +98,7 @@ public class CrowScript : MonoBehaviour
             box.GetComponent<FixedJoint2D>().connectedBody = this.GetComponent<Rigidbody2D>();
             
         }
-        else if (Input.GetKeyUp(KeyCode.E)) // When the player releases "E", detach the object by disabling the FixedJoint2D
+        else if (Input.GetKeyUp(KeyCode.E) && CrowInputEnabled) // When the player releases "E", detach the object by disabling the FixedJoint2D
         {
             isPushingOrPulling = false;
             box.GetComponent<FixedJoint2D>().enabled = false;
