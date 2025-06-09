@@ -24,11 +24,13 @@ public class AttachController : MonoBehaviour
 
         if (collision.gameObject.CompareTag("Crow") && playerSwitchScript.isFox == true && isAttached == false)
         {
+            isAttached = true;
             AttachToFox();
             Debug.Log("Attached to crow as a fox");
         }
         if (collision.gameObject.CompareTag("Player") && playerSwitchScript.isFox == false )
         {
+            isAttached = true;
             Debug.Log("attached to fox as a crow");
             AttachToFox();
             //Switch control to fox

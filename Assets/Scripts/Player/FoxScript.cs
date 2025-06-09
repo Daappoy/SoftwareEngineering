@@ -6,7 +6,7 @@ public class FoxScript : MonoBehaviour
     public Rigidbody2D FoxRb;
     public float Horizontal;
     public bool isJumping = false;
-    public bool isGrounded = true; 
+    public bool isGrounded = true;
     [SerializeField] private bool isWalled;
     public bool isPushingOrPulling = false; //state for pushing/pulling
     // private bool IsWallSliding = false;
@@ -15,13 +15,13 @@ public class FoxScript : MonoBehaviour
     private bool IsFacingRight = true;
 
     public bool InputEnabled = true;
-    
+
 
     [Header("Player Movement")]
     [SerializeField] private float speed = 8f;
     [SerializeField] private float reducedSpeed = 2f; //Slower speed when pushing/pulling
     [SerializeField] private float jumpingPower = 7f;
-    
+
 
     [Header("Ground/Wall Check")]
     [SerializeField] private BoxCollider2D groundCheck;
@@ -36,6 +36,7 @@ public class FoxScript : MonoBehaviour
     private GameObject box;
 
     [Header("WallJump")]
+    [SerializeField] private bool wallJumpBool = false;
     [SerializeField] private int wallJumpCount = 0;
     [SerializeField] private int maxWallJumps = 3;
     [SerializeField] private float WallJumpingTime = 0.2f;
@@ -90,7 +91,7 @@ public class FoxScript : MonoBehaviour
             FoxRb.velocity = new Vector2(0f, FoxRb.velocity.y);//berhentiin movement horizontal
         }
 
-        if( WallCheckBox.IsTouchingLayers(WallLayer))
+        if (WallCheckBox.IsTouchingLayers(WallLayer))
         {
             isWalled = true;
         }
@@ -102,8 +103,73 @@ public class FoxScript : MonoBehaviour
 
     private void FixedUpdate()
     {
-        Move();       
+        Move();
         checkGround();
+    }
+
+
+
+    private void Move()
+    {
+        if (!IsWallJumping && InputEnabled == true)
+        {
+            FoxRb.velocity = new Vector2(Horizontal * speed, FoxRb.velocity.y);
+        }
+
+        if (isPushingOrPulling == true)
+        {
+            FoxRb.velocity = new Vector2(Horizontal * reducedSpeed, FoxRb.velocity.y);
+
+        }
+        else
+        {
+            Flip();
+        }
+
+
+
+    }
+
+    private void ProcessInputs()
+    {
+        
+        if (isGrounded && !isJumping)
+        {
+            wallJumpCount = 0; // Reset wall jump count when grounded
+        }
+
+        if (InputEnabled == true)
+        {
+            Horizontal = Input.GetAxis("Horizontal");
+
+            if (Input.GetKeyDown(KeyCode.Space) && !isPushingOrPulling && isGrounded && !isWalled && !isJumping)
+            {
+                FoxRb.velocity = new Vector2(FoxRb.velocity.x, jumpingPower);
+            }
+            if (Input.GetKeyDown(KeyCode.Space) && !isPushingOrPulling && !isGrounded && isWalled && IsFacingRight)
+            {
+                FoxRb.velocity = new Vector2(-WallJumpingPower.x, WallJumpingPower.y);
+                IsWallJumping = true;
+                WallJumpCounter = WallJumpingTime;
+                wallJumpCount++;
+                Invoke(nameof(StopWallJumping), WallJumpDuration);
+
+            }
+            else if (Input.GetKeyDown(KeyCode.Space) && !isPushingOrPulling && !isGrounded && isWalled && !IsFacingRight)
+            {
+                FoxRb.velocity = new Vector2(WallJumpingPower.x, WallJumpingPower.y);
+                IsWallJumping = true;
+                WallJumpCounter = WallJumpingTime;
+                wallJumpCount++;
+                Invoke(nameof(StopWallJumping), WallJumpDuration);
+
+            }
+        }
+    }
+    
+    private void StopWallJumping()
+    {
+        IsWallJumping = false; // Allow movement again
     }
 
     private void Flip()
@@ -116,50 +182,6 @@ public class FoxScript : MonoBehaviour
             localscale.x *= -1f;
             transform.localScale = localscale;
         }
-    }
-
-    private void Move()
-    {
-        if (!IsWallJumping && InputEnabled == true)
-        {
-            FoxRb.velocity = new Vector2(Horizontal * speed, FoxRb.velocity.y);
-        }
-
-        if (isPushingOrPulling == true)
-        {
-            FoxRb.velocity = new Vector2(Horizontal * reducedSpeed, FoxRb.velocity.y);
-            
-        }
-        else
-        {
-            Flip();
-        }
-        
-
-        
-    }
-
-    private void ProcessInputs()
-    {
-
-        if (InputEnabled == true)
-        {
-            Horizontal = Input.GetAxis("Horizontal");
-
-            if (Input.GetKeyDown(KeyCode.Space) && !isPushingOrPulling && isGrounded || Input.GetKeyDown(KeyCode.Space) &&!isPushingOrPulling && isJumping && isWalled && !isGrounded)
-            {
-                FoxRb.velocity = new Vector2(FoxRb.velocity.x, jumpingPower);
-            }
-            else if(!isGrounded)
-            {
-                
-            }
-        }
-
-        // if (Input.GetKeyUp(KeyCode.Space) && !isPushingOrPulling && isGrounded)
-        // {
-        //     FoxRb.velocity = new Vector2(FoxRb.velocity.x, FoxRb.velocity.y * 0.5f);
-        // }
     }
 
     private bool checkGround()
@@ -180,69 +202,66 @@ public class FoxScript : MonoBehaviour
         Gizmos.color = Color.yellow;
         Gizmos.DrawLine(transform.position, (Vector2)transform.position + Vector2.right * transform.localScale.x * distance);
     }
+    
 
     // private bool IsWalled()
+    //     {
+    //         return Physics2D.OverlapCircle(WallCheck.position, wallcheckRadius, WallLayer);
+    //     }
+
+    //     private void WallSlide()
+    //     {
+    //         if ( !checkGround() && Horizontal != 0f) 
+    //         {
+    //             IsWallSliding = true;
+    //             FoxRb.velocity = new Vector2(FoxRb.velocity.x, Mathf.Clamp(FoxRb.velocity.y, -WallSlidingSpeed, float.MaxValue));
+    //         }
+    //         else
+    //         {
+    //             IsWallSliding = false;
+    //         }
+    //     }
+
+    //     private void WallJump()
     // {
-    //     return Physics2D.OverlapCircle(WallCheck.position, wallcheckRadius, WallLayer);
+    //     if (IsWallSliding) 
+    //     {
+    //         WallJumpingDirection = IsFacingRight ? -1f : 1f; // Ensure direction is set correctly
+    //         IsWallJumping = false;
+    //         WallJumpCounter = WallJumpingTime;
+    //         CancelInvoke(nameof(StopWallJumping));
+    //     }
+    //     else
+    //     {
+    //         WallJumpCounter -= Time.deltaTime;
+    //     }
+
+    //     if (Input.GetKeyDown(KeyCode.Space) && WallJumpCounter > 0f && wallJumpCount < maxWallJumps)
+    //     {
+    //         IsWallJumping = true;
+
+    //         // Increment the wall jump counter
+    //         wallJumpCount++;
+
+    //         // Apply the jump force
+    //         FoxRb.velocity = new Vector2(WallJumpingDirection * WallJumpingPower.x, WallJumpingPower.y);
+    //         WallJumpCounter = 0f;
+
+    //         if(wallJumpCount == maxWallJumps)
+    //         {
+    //             Debug.Log("Max wall jumps reached");
+    //         }
+
+    //         // Ensure the player faces the correct direction after jumping
+    //         if ((WallJumpingDirection > 0 && !IsFacingRight) || (WallJumpingDirection < 0 && IsFacingRight))
+    //         {
+    //             Flip();
+    //         }
+
+    //         Invoke(nameof(StopWallJumping), WallJumpDuration);
+    //     }
     // }
 
-    // private void WallSlide()
-    // {
-    //     // if ( !checkGround() && Horizontal != 0f) 
-    //     // {
-    //     //     IsWallSliding = true;
-    //     //     FoxRb.velocity = new Vector2(FoxRb.velocity.x, Mathf.Clamp(FoxRb.velocity.y, -WallSlidingSpeed, float.MaxValue));
-    //     // }
-    //     // else
-    //     // {
-    //     //     IsWallSliding = false;
-    //     // }
-    // }
 
-//     private void WallJump()
-// {
-//     if (IsWallSliding) 
-//     {
-//         WallJumpingDirection = IsFacingRight ? -1f : 1f; // Ensure direction is set correctly
-//         IsWallJumping = false;
-//         WallJumpCounter = WallJumpingTime;
-//         CancelInvoke(nameof(StopWallJumping));
-//     }
-//     else
-//     {
-//         WallJumpCounter -= Time.deltaTime;
-//     }
 
-//     if (Input.GetKeyDown(KeyCode.Space) && WallJumpCounter > 0f && wallJumpCount < maxWallJumps)
-//     {
-//         IsWallJumping = true;
-
-//         // Increment the wall jump counter
-//         wallJumpCount++;
-
-//         // Apply the jump force
-//         FoxRb.velocity = new Vector2(WallJumpingDirection * WallJumpingPower.x, WallJumpingPower.y);
-//         WallJumpCounter = 0f;
-
-//         if(wallJumpCount == maxWallJumps)
-//         {
-//             Debug.Log("Max wall jumps reached");
-//         }
-
-//         // Ensure the player faces the correct direction after jumping
-//         if ((WallJumpingDirection > 0 && !IsFacingRight) || (WallJumpingDirection < 0 && IsFacingRight))
-//         {
-//             Flip();
-//         }
-
-//         Invoke(nameof(StopWallJumping), WallJumpDuration);
-//     }
-// }
-
-//     private void StopWallJumping()
-//     {
-//         IsWallJumping = false; // Allow movement again
-//     }
-
-    
 }

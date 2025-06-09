@@ -1162,6 +1162,7 @@ MonoBehaviour:
   InteractMask:
     serializedVersion: 2
     m_Bits: 128
+  wallJumpBool: 0
   wallJumpCount: 0
   maxWallJumps: 3
   WallJumpingTime: 0.2
@@ -1185,7 +1186,7 @@ Rigidbody2D:
   m_LinearDrag: 0
   m_AngularDrag: 1
   m_GravityScale: 1
-  m_Material: {fileID: 6200000, guid: c900a3f0e1e8adf4cbba6aa745aa92c3, type: 2}
+  m_Material: {fileID: 6200000, guid: 3b8e2a31910126f4b8ecfc7b8fe1fa3b, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -6982,7 +6983,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.39198732, y: 0.34725714}
+  m_Offset: {x: 0.11606884, y: 0.34725714}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -6993,7 +6994,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 2.69732, y: 0.9011793}
+  m_Size: {x: 1.9973335, y: 0.9011793}
   m_EdgeRadius: 0
 --- !u!1 &1484651379
 GameObject:
