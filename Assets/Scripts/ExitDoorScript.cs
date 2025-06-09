@@ -9,8 +9,8 @@ public class ExitDoorScript : MonoBehaviour
     private bool playerInTrigger = false; // Flag to check if the player is in the trigger area
     private Collider2D playerCollider; // Store the player's collider for later use
 
-    public AttachController attachController; // Reference to the AttachController script
-    public bool isAttached => attachController.isAttached; // Property to check if the crow is attached to the fox
+    public PlayerSwitch playerSwitchScript; // Reference to the AttachController script
+    public bool isAttached => playerSwitchScript.isAttached; // Property to check if the crow is attached to the fox
     void Start()
     {
         LevelCompleteUI.SetActive(false); // Hide the level complete UI initially

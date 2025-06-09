@@ -10,8 +10,8 @@ public class PipePortal : MonoBehaviour
     private GameObject FkeyPrompt; //UI element to show the player can interact
     private bool playerInTrigger = false;
     private Collider2D playerCollider;
-    public AttachController attachController; // Reference to the AttachController script
-    public bool isAttached => attachController.isAttached; // Property to check if the crow is attached to the fox
+    public PlayerSwitch playerSwitchScript; // Reference to the AttachController script
+    public bool isAttached => playerSwitchScript.isAttached; // Property to check if the crow is attached to the fox
 
 
     private void Start()

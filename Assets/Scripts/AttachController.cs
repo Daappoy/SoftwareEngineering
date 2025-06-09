@@ -14,23 +14,29 @@ public class AttachController : MonoBehaviour
     [Header("crowScript")]
     [SerializeField] public CrowScript crowScript;
     [SerializeField] public Rigidbody2D CrowRb;
-    [SerializeField] public bool isAttached = false;
+    
     [SerializeField] private Transform crowTransform;
 
     [Header("Player Switch")]
     public PlayerSwitch playerSwitchScript;
+
+    void Start()
+    {
+        
+    }
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
 
-        if (collision.gameObject.CompareTag("Crow") && playerSwitchScript.isFox == true && isAttached == false)
+        if (collision.gameObject.CompareTag("Crow") && playerSwitchScript.isFox == true && playerSwitchScript.isAttached == false)
         {
-            isAttached = true;
+            playerSwitchScript.isAttached = true;
             AttachToFox();
             Debug.Log("Attached to crow as a fox");
         }
-        if (collision.gameObject.CompareTag("Player") && playerSwitchScript.isFox == false )
+        if (collision.gameObject.CompareTag("Player") && playerSwitchScript.isFox == false)
         {
-            isAttached = true;
+            playerSwitchScript.isAttached = true;
             Debug.Log("attached to fox as a crow");
             AttachToFox();
             //Switch control to fox
@@ -40,7 +46,7 @@ public class AttachController : MonoBehaviour
     public void AttachToFox()
     {
         Debug.Log("isattaced set to true");
-        isAttached = true;
+        playerSwitchScript.isAttached = true;
         // CrowRb.isKinematic = true;
         // crowTransform.transform.parent = foxTransform;
          CrowRb.mass = 0f;
@@ -49,7 +55,7 @@ public class AttachController : MonoBehaviour
     public void DetachFromFox()
     {
         Debug.Log("detached from fox, now playing as a crow");
-        isAttached = false;
+        playerSwitchScript.isAttached = false;
         // CrowRb.isKinematic = false;
         // crowTransform.transform.parent = null;
         crowScript.OnDetachBoost();
@@ -58,11 +64,11 @@ public class AttachController : MonoBehaviour
 
     void Update()
     {
-        if (isAttached && Input.GetKeyDown(KeyCode.Q))
+        if (playerSwitchScript.isAttached && Input.GetKeyDown(KeyCode.Q))
         {
             DetachFromFox();
         }
-        if (isAttached) 
+        if (playerSwitchScript.isAttached) 
         {
             crowTransform.position = foxTransform.position + crowOffset;
            

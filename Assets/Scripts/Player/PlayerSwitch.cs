@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class PlayerSwitch : MonoBehaviour
 {
+    [SerializeField] public bool isAttached = false;
     public FoxScript FoxController;
     public CrowScript CrowController;
     public bool isFox = true;

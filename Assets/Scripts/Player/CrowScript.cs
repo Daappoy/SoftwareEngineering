@@ -81,6 +81,12 @@ public class CrowScript : MonoBehaviour
             {
                 CrowRb.gravityScale = 1f;
             }
+
+            if(playerSwitchScript.isAttached)
+            {
+                CrowRb.velocity = new Vector2(0f,0f); // Disable crow input when attached to the fox
+            }
+            
         }
 
         // Perform a raycast below the player to check for pushable objects
