@@ -546,6 +546,8 @@ MonoBehaviour:
   - {fileID: 603514788}
   rotationSpeed: 100
   _camera: {fileID: 514311044}
+  Fox: {fileID: 461957997}
+  Crow: {fileID: 1805945072}
 --- !u!4 &377380410
 Transform:
   m_ObjectHideFlags: 0

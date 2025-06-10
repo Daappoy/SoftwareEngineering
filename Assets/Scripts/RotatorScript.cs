@@ -8,18 +8,33 @@ public class RotatorScript : MonoBehaviour
     public List<GameObject> RotatorList;
     public float rotationSpeed = 100f;
     public Camera _camera;
+    public GameObject Fox;
+    public GameObject Crow;
+    private bool rotationControl = true;
 
     //void Update()
     //{
     //    transform.Rotate(Vector3.forward, rotationSpeed * Time.deltaTime);
     //}
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            GameRotateLeft();
+        }
+        else if (Input.GetKeyDown(KeyCode.V))
+        {
+            GameRotateRight();
+        }
+    }
+
     public void turnControlOff ()
     {
         PS.FoxController.InputEnabled = false;
         PS.CrowController.CrowInputEnabled = false;
         PS.enabled = false;
-        StartCoroutine(turnControlOn());
+        StartCoroutine(turnControlOn()); Debug.Log("off");
     }
 
     public IEnumerator turnControlOn ()
@@ -38,7 +53,29 @@ public class RotatorScript : MonoBehaviour
 
     public void GameRotateLeft ()
     {
-        turnControlOff();
-        _camera.transform.rotation = Quaternion.Euler(0, 0, 90);
+        if (rotationControl)
+        {
+            rotationControl = false;
+            turnControlOff();
+            _camera.transform.rotation = Quaternion.Euler(0, 0, 90);
+            Fox.transform.rotation = Quaternion.Euler(0, 0, 90);
+            Crow.transform.rotation = Quaternion.Euler(0, 0, 90);
+            Physics.gravity = new Vector3(90, 0, 0);
+            rotationControl = true; Debug.Log("Left");
+        }
+    }
+
+    public void GameRotateRight()
+    {
+        if (rotationControl)
+        {
+            rotationControl = false;
+            turnControlOff();
+            _camera.transform.rotation = Quaternion.Euler(0, 0, -90);
+            Fox.transform.rotation = Quaternion.Euler(0, 0, -90);
+            Crow.transform.rotation = Quaternion.Euler(0, 0, -90);
+            Physics.gravity = new Vector3(-9.81f, 0, 0);
+            rotationControl = true; Debug.Log("Right");
+        }
     }
 }

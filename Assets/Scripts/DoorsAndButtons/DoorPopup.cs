@@ -25,13 +25,13 @@ public class DoorPopup : MonoBehaviour
     {
         if (Appear)
         {
-            Debug.Log("Door appeared");
+            //Debug.Log("Door appeared");
             doorSpriteRenderer.enabled = true;
             doorCollider.enabled = true;
         }
         else
         {
-            Debug.Log("Door disappeared");
+            //Debug.Log("Door disappeared");
             doorSpriteRenderer.enabled = false;
             doorCollider.enabled = false;
         }
