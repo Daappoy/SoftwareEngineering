@@ -18,7 +18,7 @@ public class RotatorScript : MonoBehaviour
     //    transform.Rotate(Vector3.forward, rotationSpeed * Time.deltaTime);
     //}
 
-    private void Update()
+    private void Update() // get input from C or V, if you want to change this, go ahead, but do tell me
     {
         if (Input.GetKeyDown(KeyCode.C))
         {
@@ -30,19 +30,19 @@ public class RotatorScript : MonoBehaviour
         }
     }
 
-    public void turnControlOff ()
+    private void turnControlOff () // method to turn off all inputs from the player to stop spams
     {
-        PS.FoxController.InputEnabled = false;
+        PS.FoxController.InputEnabled = false; // PS is PlayerSwitch
         PS.CrowController.CrowInputEnabled = false;
         PS.enabled = false;
-        StartCoroutine(turnControlOn()); Debug.Log("off");
+        StartCoroutine(turnControlOn()); Debug.Log("off"); // this calls to turn it back on automaticlly after a time gap
     }
 
-    public IEnumerator turnControlOn ()
+    private IEnumerator turnControlOn () // method to turn on all input back, theorethicaly, no deep test has been done
     {
-        yield return new WaitForSecondsRealtime(2.0f);
+        yield return new WaitForSecondsRealtime(2.0f); // I set time as a gap before next input, the float here is how many second the time of the gap
         PS.enabled = true;
-        if (PS.isFox)
+        if (PS.isFox) // this checks which on is the current active charc
         {
             PS.FoxController.InputEnabled = true;
         }
@@ -50,16 +50,16 @@ public class RotatorScript : MonoBehaviour
         {
             PS.CrowController.CrowInputEnabled = true;
         }
-        rotationControl = true;
+        rotationControl = true; // not sure if I should put this after or before the time gap
     }
 
-    public void GameRotateLeft ()
+    private void GameRotateLeft () // method for rotating clockwise
     {
-        if (rotationControl)
+        if (rotationControl) // check if input for rotation is allowed
         {
-            rotationControl = false;
+            rotationControl = false; // stop spam
             turnControlOff();
-            if (transform.eulerAngles.z == 0)
+            if (transform.eulerAngles.z == 0) // check current angle and rotate it, yes this is not optimal, im too lazy
             {
                 transform.rotation = Quaternion.Euler(0, 0, 90); 
             }
@@ -75,20 +75,19 @@ public class RotatorScript : MonoBehaviour
             {
                 transform.rotation = Quaternion.Euler(0, 0, 0);
             }
-            Fox.transform.rotation = Quaternion.Euler(0, 0, 0);
+            Fox.transform.rotation = Quaternion.Euler(0, 0, 0); // due to this 3 need to be foldered to join the rotation, they need to be rotated back to 0
             Crow.transform.rotation = Quaternion.Euler(0, 0, 0);
             _camera.transform.rotation = Quaternion.Euler(0, 0, 0);
-             Debug.Log("Left");
         }
     }
 
-    public void GameRotateRight()
+    private void GameRotateRight() // method for rotating counter clockwise
     {
-        if (rotationControl)
+        if (rotationControl) // check if input for rotation is allowed
         {
-            rotationControl = false;
+            rotationControl = false; // stop spam
             turnControlOff();
-            if (transform.eulerAngles.z == 0)
+            if (transform.eulerAngles.z == 0) // check current angle and rotate it, yes this is not optimal, im too lazy
             {
                 transform.rotation = Quaternion.Euler(0, 0, 270); 
             }
@@ -104,10 +103,9 @@ public class RotatorScript : MonoBehaviour
             {
                 transform.rotation = Quaternion.Euler(0, 0, 0);
             }
-            Fox.transform.rotation = Quaternion.Euler(0, 0, 0);
+            Fox.transform.rotation = Quaternion.Euler(0, 0, 0); // due to this 3 need to be foldered to join the rotation, they need to be rotated back to 0
             Crow.transform.rotation = Quaternion.Euler(0, 0, 0);
             _camera.transform.rotation = Quaternion.Euler(0, 0, 0);
-            
         }
     }
 }
