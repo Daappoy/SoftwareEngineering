@@ -8,6 +8,8 @@ public class BoxPull : MonoBehaviour
     public bool beingPushed;
     [SerializeField] private GameObject EKeyPrompt;
     private Rigidbody2D rb;
+    public BoxCollider2D SidetriggerCollider;
+    public BoxCollider2D TopTriggerCollider;
     // Start is called before the first frame update
     void Start()
     {

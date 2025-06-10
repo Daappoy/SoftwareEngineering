@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class ButtonHold : MonoBehaviour
 {
@@ -14,6 +15,8 @@ public class ButtonHold : MonoBehaviour
 
     public Sprite ButtonUnpressed;
     public Sprite ButtonPressed;
+    public UnityEvent ButtonOn;
+    public UnityEvent ButtonOff;
 
     void Start()
     {

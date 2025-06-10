@@ -144,5 +144,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buttonTID: 0
-  LeverOn: {fileID: 21300000, guid: c9296f22de88af04f998d09862b4c559, type: 3}
-  LeverOff: {fileID: 21300000, guid: 76b6cab50f0712c439e2020c93845585, type: 3}
+  door: {fileID: 0}
+  LeverOnSprite: {fileID: 21300000, guid: c9296f22de88af04f998d09862b4c559, type: 3}
+  LeverOffSprite: {fileID: 21300000, guid: 76b6cab50f0712c439e2020c93845585, type: 3}
+  LeverOn:
+    m_PersistentCalls:
+      m_Calls: []
+  LeverOff:
+    m_PersistentCalls:
+      m_Calls: []
+  isOpen: 0

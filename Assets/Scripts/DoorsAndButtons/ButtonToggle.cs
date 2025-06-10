@@ -2,16 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class ButtonToggle : MonoBehaviour
 {
     [SerializeField]
     private int buttonTID;
+    [SerializeField]
     private DoorToggle door;
     [SerializeField]
-    public Sprite LeverOn;
+    public Sprite LeverOnSprite;
     [SerializeField]
-    public Sprite LeverOff;
+    public Sprite LeverOffSprite;
+    public UnityEvent LeverOn;
+    public UnityEvent LeverOff;
+    public bool isOpen = false;
     void Start()
     {
         DoorToggle[] doors = FindObjectsOfType<DoorToggle>();
@@ -26,23 +31,21 @@ public class ButtonToggle : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Player") && door != null)
+        if (collision.CompareTag("Crow") && door != null || collision.CompareTag("Player") && door != null)
         {
-            door.ToggleDoor(); //buka pintu
+            if (isOpen == false)
+            {
+                GetComponent<SpriteRenderer>().sprite = LeverOnSprite;
+                LeverOn?.Invoke();
+                isOpen = true;
+            }
+            else if(isOpen == true)
+            {
+                GetComponent<SpriteRenderer>().sprite = LeverOffSprite;
+                LeverOff?.Invoke();
+                isOpen = false;
+            }
+            
         }
     }
-    private void FixedUpdate()
-    {
-        if (door.doorTID == buttonTID && door.isOpen == true)
-        {
-            // Change the button color to indicate it's pressed
-            GetComponent<SpriteRenderer>().sprite = LeverOn;
-        }
-        else
-        {
-            // Reset the button color to its original state
-            GetComponent<SpriteRenderer>().sprite = LeverOff;
-        }
-    }
-    
 }

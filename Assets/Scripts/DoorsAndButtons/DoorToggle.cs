@@ -12,9 +12,11 @@ public class DoorToggle : MonoBehaviour
     private ButtonToggle buttonToggle;
     [Header("Door Position")]
     [SerializeField]
-    private Vector3 openPosToggle;
+    private Vector3 initialPos;
     [SerializeField]
-    private Vector3 closedposToggle;
+    private Vector3 desiredPos;
+    [SerializeField]
+    private Vector3 offsetPos = new Vector3(0, 3f, 0); // Example offset for open position
     [Header("Door Speed")]
     public float speed = 2f;
     [Header("Door State")]
@@ -22,28 +24,27 @@ public class DoorToggle : MonoBehaviour
 
     void Start()
     {
-    //    closedposToggle = transform.position;
+        initialPos = transform.position;
+        // closedposToggle = transform.position;
+        // openPosToggle = closedposToggle + new Vector3(0, 3f, 0); // Example offset for open position
     }
 
     void Update()
     {
-        Vector3 targetPosition;
-        if(isOpen)
-        {
-            Debug.Log("Open Door");
-            targetPosition = openPosToggle;
-        }
-        else
-        {
-            // Debug.Log("Close Door");
-            targetPosition = closedposToggle;
-        }
-        transform.position = Vector3.MoveTowards(transform.position, targetPosition, speed * Time.deltaTime);
+        Vector3 targetPosition = initialPos + desiredPos;
 
+        transform.position = Vector3.MoveTowards(transform.position, targetPosition, speed * Time.deltaTime);
     }
-    public void ToggleDoor()
+    public void OpenDoor()
     {
-        Debug.Log("Toggle Door");
-        isOpen = !isOpen;
+        Debug.Log("Open Door");
+        desiredPos = offsetPos;
+    }
+
+    public void CloseDoor()
+    {
+        Debug.Log("Close Door");
+        desiredPos = Vector3.zero;
     }
 }
+

@@ -10,14 +10,21 @@ public class DoorHold : MonoBehaviour
     public int DoorHID => doorHID;
     public ButtonHold buttonHold;
     [Header("Door Position")]
-    public Vector3 openPosHold;
-    public Vector3 closedposHold;
+    [SerializeField]
+    private Vector3 InitialPos;
+    [SerializeField]
+    private Vector3 DesiredPos;
+    [SerializeField]
+    private Vector3 offsetPosHold = new Vector3(0, 3f, 0); // Example offset for open position
+    [SerializeField]
+    private Vector3 targetposition;
     [Header("Door Speed")]
     public float speed = 2f;
     [Header("Door State")]
     private bool isOpen = false;
     void Start()
     {
+        InitialPos = transform.position;
         ButtonHold[] buttons = FindObjectsOfType<ButtonHold>();
         foreach (ButtonHold b in buttons)
         {
@@ -27,17 +34,20 @@ public class DoorHold : MonoBehaviour
                 break;
             }
         }
-        closedposHold = transform.position;
     }
 
     void Update()
     {
-        if(buttonHold.isHolding == true)
+        targetposition = InitialPos + DesiredPos;
+        if (buttonHold.isHolding == true)
         {
+            DesiredPos = offsetPosHold; // Set the desired position to the offset when holding
             OpenDoorHold();
         }
         else
         {
+            DesiredPos = Vector3.zero; // Reset the desired position when not holding
+            targetposition = InitialPos; // Reset target position to initial position
             CloseDoorHold();
         }
     }
@@ -46,14 +56,14 @@ public class DoorHold : MonoBehaviour
     {
         if(buttonHold.isHolding == true)
         {
-            transform.position = Vector3.MoveTowards(transform.position, openPosHold, speed * Time.deltaTime);
+            transform.position = Vector3.MoveTowards(transform.position, targetposition, speed * Time.deltaTime);
         }
     }
     public void CloseDoorHold()
     {
         if(buttonHold.isHolding == false)
         {
-            transform.position = Vector3.MoveTowards(transform.position, closedposHold, speed * Time.deltaTime);
+            transform.position = Vector3.MoveTowards(transform.position, targetposition, speed * Time.deltaTime);
         }
     }
 }
