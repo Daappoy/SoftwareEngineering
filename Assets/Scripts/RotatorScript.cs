@@ -57,10 +57,11 @@ public class RotatorScript : MonoBehaviour
         {
             rotationControl = false;
             turnControlOff();
-            _camera.transform.rotation = Quaternion.Euler(0, 0, 90);
-            Fox.transform.rotation = Quaternion.Euler(0, 0, 90);
-            Crow.transform.rotation = Quaternion.Euler(0, 0, 90);
-            Physics.gravity = new Vector3(90, 0, 0);
+            
+            transform.rotation = Quaternion.Euler(0, 0, 90);
+            Fox.transform.rotation = Quaternion.Euler(0, 0, 0);
+            Crow.transform.rotation = Quaternion.Euler(0, 0, 0);
+            _camera.transform.rotation = Quaternion.Euler(0, 0, 0);
             rotationControl = true; Debug.Log("Left");
         }
     }
@@ -71,10 +72,11 @@ public class RotatorScript : MonoBehaviour
         {
             rotationControl = false;
             turnControlOff();
-            _camera.transform.rotation = Quaternion.Euler(0, 0, -90);
-            Fox.transform.rotation = Quaternion.Euler(0, 0, -90);
-            Crow.transform.rotation = Quaternion.Euler(0, 0, -90);
-            Physics.gravity = new Vector3(-9.81f, 0, 0);
+            
+            transform.rotation = Quaternion.Euler(0, 0, -90);
+            Fox.transform.rotation = Quaternion.Euler(0, 0, 0);
+            Crow.transform.rotation = Quaternion.Euler(0, 0, 0);
+            _camera.transform.rotation = Quaternion.Euler(0, 0, 0);
             rotationControl = true; Debug.Log("Right");
         }
     }
