@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Rendering;
 using UnityEngine;
 
 public class RotatorScript : MonoBehaviour
@@ -49,6 +50,7 @@ public class RotatorScript : MonoBehaviour
         {
             PS.CrowController.CrowInputEnabled = true;
         }
+        rotationControl = true;
     }
 
     public void GameRotateLeft ()
@@ -57,12 +59,26 @@ public class RotatorScript : MonoBehaviour
         {
             rotationControl = false;
             turnControlOff();
-            
-            transform.rotation = Quaternion.Euler(0, 0, 90);
+            if (transform.eulerAngles.z == 0)
+            {
+                transform.rotation = Quaternion.Euler(0, 0, 90); 
+            }
+            else if (transform.eulerAngles.z == 90)
+            {
+                transform.rotation = Quaternion.Euler(0, 0, 180);
+            }
+            else if (transform.eulerAngles.z == 180)
+            {
+                transform.rotation = Quaternion.Euler(0, 0, 270);
+            }
+            else
+            {
+                transform.rotation = Quaternion.Euler(0, 0, 0);
+            }
             Fox.transform.rotation = Quaternion.Euler(0, 0, 0);
             Crow.transform.rotation = Quaternion.Euler(0, 0, 0);
             _camera.transform.rotation = Quaternion.Euler(0, 0, 0);
-            rotationControl = true; Debug.Log("Left");
+             Debug.Log("Left");
         }
     }
 
@@ -72,12 +88,26 @@ public class RotatorScript : MonoBehaviour
         {
             rotationControl = false;
             turnControlOff();
-            
-            transform.rotation = Quaternion.Euler(0, 0, -90);
+            if (transform.eulerAngles.z == 0)
+            {
+                transform.rotation = Quaternion.Euler(0, 0, 270); 
+            }
+            else if (transform.eulerAngles.z == 270)
+            {
+                transform.rotation = Quaternion.Euler(0, 0, 180);
+            }
+            else if (transform.eulerAngles.z == 180)
+            {
+                transform.rotation = Quaternion.Euler(0, 0, 90);
+            }
+            else
+            {
+                transform.rotation = Quaternion.Euler(0, 0, 0);
+            }
             Fox.transform.rotation = Quaternion.Euler(0, 0, 0);
             Crow.transform.rotation = Quaternion.Euler(0, 0, 0);
             _camera.transform.rotation = Quaternion.Euler(0, 0, 0);
-            rotationControl = true; Debug.Log("Right");
+            
         }
     }
 }
