@@ -36,6 +36,7 @@ public class ButtonHold : MonoBehaviour
         if (collision.CompareTag("Player") || collision.CompareTag("Pushable") && doorHold != null)
         {
             isHolding = true;
+            doorHold.isOpen = true;
             GetComponent<SpriteRenderer>().sprite = ButtonPressed;
         }
     }
@@ -51,6 +52,7 @@ public class ButtonHold : MonoBehaviour
             //     GetComponent<SpriteRenderer>().sprite = ButtonUnpressed;
             // }
             isHolding = false;
+            doorHold.isOpen = false;
             GetComponent<SpriteRenderer>().sprite = ButtonUnpressed;
         }
     }

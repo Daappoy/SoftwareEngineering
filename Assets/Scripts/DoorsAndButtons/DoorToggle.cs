@@ -12,15 +12,16 @@ public class DoorToggle : MonoBehaviour
     private ButtonToggle buttonToggle;
     [Header("Door Position")]
     [SerializeField]
-    private Vector3 initialPos;
+    public Vector3 initialPos;
     [SerializeField]
     private Vector3 desiredPos;
     [SerializeField]
-    private Vector3 offsetPos = new Vector3(0, 3f, 0); // Example offset for open position
+    public Vector3 offsetPos; // Example offset for open position
     [Header("Door Speed")]
     public float speed = 2f;
     [Header("Door State")]
     public bool isOpen = false;
+    public bool isSideWay;
 
     void Start()
     {

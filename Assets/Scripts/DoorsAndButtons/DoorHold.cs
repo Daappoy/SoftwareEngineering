@@ -11,17 +11,18 @@ public class DoorHold : MonoBehaviour
     public ButtonHold buttonHold;
     [Header("Door Position")]
     [SerializeField]
-    private Vector3 InitialPos;
+    public Vector3 InitialPos;
     [SerializeField]
     private Vector3 DesiredPos;
     [SerializeField]
-    private Vector3 offsetPosHold = new Vector3(0, 3f, 0); // Example offset for open position
+    public Vector3 offsetPosHold; // Example offset for open position
     [SerializeField]
     private Vector3 targetposition;
     [Header("Door Speed")]
     public float speed = 2f;
     [Header("Door State")]
-    private bool isOpen = false;
+    public bool isOpen = false;
+    public bool isSideWay;
     void Start()
     {
         InitialPos = transform.position;
