@@ -11,6 +11,7 @@ public class PauseMenuManager : MonoBehaviour
     private bool escapeKeyPressed = false;
     public bool isPaused = false;
     // Start is called before the first frame update
+    public AudioManager audioManager;
     void Start()
     {
         MainMenuBackground.SetActive(false);
@@ -22,6 +23,7 @@ public class PauseMenuManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape) && !escapeKeyPressed)
         {
+            
             escapeKeyPressed = true;
             if (isPaused)
             {
@@ -47,6 +49,7 @@ public class PauseMenuManager : MonoBehaviour
         // MainMenuPanel.SetActive(true);
         MainMenuBackground.SetActive(true);
         isPaused = true;
+        audioManager.PlaySFX(audioManager.Pause);
     }
 
     public void ResumeGame()
@@ -57,10 +60,12 @@ public class PauseMenuManager : MonoBehaviour
         // MainMenuPanel.SetActive(false);
         MainMenuBackground.SetActive(false);
         isPaused = false;
+        audioManager.PlaySFX(audioManager.MouseClick);
     }
     
     public void BackToMainMenu()
     {
+        audioManager.PlaySFX(audioManager.MouseClick);
         SceneManager.LoadScene("MainMenu");
         // audioManager.PlaySFX(audioManager.ClickOnPause);
         Time.timeScale = 1f;

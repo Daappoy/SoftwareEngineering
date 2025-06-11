@@ -8,6 +8,7 @@ public class DoorToggle : MonoBehaviour
 {
     [Header("Door Toggle")]
     [SerializeField] private int DoorTID;
+    [SerializeField] private Rigidbody2D Rigidbody2D;
     public int doorTID => DoorTID;
     private ButtonToggle buttonToggle;
     [Header("Door Position")]
@@ -22,10 +23,12 @@ public class DoorToggle : MonoBehaviour
     [Header("Door State")]
     public bool isOpen = false;
     public bool isSideWay;
+    public AudioManager audioManager;
 
     void Start()
     {
-        initialPos = transform.localPosition;;
+        audioManager = GameObject.FindGameObjectWithTag("AudioManager").GetComponent<AudioManager>();
+        initialPos = transform.localPosition;
         // closedposToggle = transform.position;
         // openPosToggle = closedposToggle + new Vector3(0, 3f, 0); // Example offset for open position
     }
@@ -35,16 +38,38 @@ public class DoorToggle : MonoBehaviour
         Vector3 targetPosition = initialPos + desiredPos;
 
         transform.localPosition = Vector3.MoveTowards(transform.localPosition, targetPosition, speed * Time.deltaTime);
+
+        // Check if the door is moving
+        if (Vector3.Distance(transform.localPosition, targetPosition) > 0.01f)
+        {
+            isOpen = true;
+            // audioManager.PlaySFX(audioManager.DoorOpen);
+            
+        }
+        else
+        {
+            isOpen = false;
+            // Optionally, stop the sound if your AudioManager supports it
+            // audioManager.StopSFX(audioManager.DoorOpen);
+        }
     }
     [ContextMenu("OpenDoor")]
     public void OpenDoor()
     {
+        if (audioManager != null)
+        {  
+            audioManager.PlaySFX(audioManager.Lever);
+        }
         Debug.Log("Open Door");
         desiredPos = offsetPos;
     }
     [ContextMenu("CloseDoor")]
     public void CloseDoor()
     {
+        if (audioManager != null)
+        {
+            audioManager.PlaySFX(audioManager.Lever);
+        }
         Debug.Log("Close Door");
         desiredPos = Vector3.zero;
     }

@@ -17,13 +17,15 @@ public class ButtonHold : MonoBehaviour
     public Sprite ButtonPressed;
     public UnityEvent ButtonOn;
     public UnityEvent ButtonOff;
+    public AudioManager audioManager;
 
     void Start()
     {
+        audioManager = GameObject.FindGameObjectWithTag("AudioManager").GetComponent<AudioManager>();
         DoorHold[] doors = FindObjectsOfType<DoorHold>();
-        foreach(DoorHold d in doors)
+        foreach (DoorHold d in doors)
         {
-            if(d.DoorHID == ButtonHID)
+            if (d.DoorHID == ButtonHID)
             {
                 doorHold = d;
                 break;
@@ -38,6 +40,11 @@ public class ButtonHold : MonoBehaviour
             isHolding = true;
             doorHold.isOpen = true;
             GetComponent<SpriteRenderer>().sprite = ButtonPressed;
+            // if (audioManager != null)
+            // {
+            //     audioManager.PlaySFX(audioManager.Buttton);
+            // }
+            ButtonOn?.Invoke();
         }
     }
 
@@ -45,6 +52,10 @@ public class ButtonHold : MonoBehaviour
     {
         if (collision.CompareTag("Player") || collision.CompareTag("Pushable"))
         {
+            // if (audioManager != null)
+            // {
+            //     audioManager.PlaySFX(audioManager.Buttton);
+            // }
             // if(doorHold.DoorHID == ButtonHID)
             // {
             //     Debug.Log("Player is not holding the button");
@@ -54,6 +65,8 @@ public class ButtonHold : MonoBehaviour
             isHolding = false;
             doorHold.isOpen = false;
             GetComponent<SpriteRenderer>().sprite = ButtonUnpressed;
+            ButtonOff?.Invoke();
         }
     }
+
 }

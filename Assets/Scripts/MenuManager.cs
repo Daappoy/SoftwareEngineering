@@ -12,6 +12,7 @@ public class MenuManager : MonoBehaviour
     private void Start()
     {
         ShowOnly(mainMenu);
+        audioManager = GameObject.FindGameObjectWithTag("AudioManager").GetComponent<AudioManager>();
     }
     
     private void Awake()
@@ -30,16 +31,26 @@ public class MenuManager : MonoBehaviour
     }
 
     // Public methods for specific menus
-    public void OpenSettings() => ShowOnly(settings);
-    public void OpenMainMenu() => ShowOnly(mainMenu);
+    public void OpenSettings()
+    {
+        ShowOnly(settings);
+        audioManager.PlaySFX(audioManager.MouseClick);   
+    }
+    public void OpenMainMenu()
+    {
+        ShowOnly(mainMenu);
+        audioManager.PlaySFX(audioManager.MouseClick); 
+    }
     public void OpenLevels()
     {
         ShowOnly(levels);
         Time.timeScale = 1f;
+        audioManager.PlaySFX(audioManager.MouseClick); 
     }
-    
+
     public void Quit()
     {
         Application.Quit();
+        audioManager.PlaySFX(audioManager.MouseClick); 
     }
 }

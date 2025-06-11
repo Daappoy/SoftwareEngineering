@@ -2850,8 +2850,9 @@ GameObject:
   m_Component:
   - component: {fileID: 808439784}
   - component: {fileID: 808439785}
+  - component: {fileID: 808439786}
   m_Layer: 0
-  m_Name: Music
+  m_Name: OST
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2882,11 +2883,11 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 24300002, guid: b406e57b29f3e6945b390ca37f39e8ff, type: 2}
-  m_audioClip: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 21e3e9403c70c7b42b13d5a38423e071, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.1
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -2968,6 +2969,19 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &808439786
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 808439783}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf69d46004b214745989823a344658a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  volumeSlider: {fileID: 1015194892}
 --- !u!1 &867095553
 GameObject:
   m_ObjectHideFlags: 0
@@ -3144,7 +3158,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 24300002, guid: b406e57b29f3e6945b390ca37f39e8ff, type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.1
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -3318,13 +3332,25 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1236442035}
-        m_TargetAssemblyTypeName: SettingsMenu, Assembly-CSharp
-        m_MethodName: SetVolume
+      - m_Target: {fileID: 1236442037}
+        m_TargetAssemblyTypeName: VolumeManager, Assembly-CSharp
+        m_MethodName: ChangeVolume
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: VolumeManager, Assembly-CSharp
+        m_MethodName: 
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -4009,6 +4035,7 @@ GameObject:
   - component: {fileID: 1236442033}
   - component: {fileID: 1236442035}
   - component: {fileID: 1236442036}
+  - component: {fileID: 1236442037}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -4031,7 +4058,7 @@ MonoBehaviour:
   mainMenu: {fileID: 217663730}
   settings: {fileID: 1020366352}
   levels: {fileID: 255531796}
-  audioManager: {fileID: 0}
+  audioManager: {fileID: 1785852135}
 --- !u!4 &1236442034
 Transform:
   m_ObjectHideFlags: 0
@@ -4059,7 +4086,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ac104f0921e87544ab396c4e95dee36, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  audioMixer: {fileID: 0}
 --- !u!114 &1236442036
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4072,6 +4098,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6526123fb4da92478518beff6907cc1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1236442037
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1236442032}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf69d46004b214745989823a344658a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  volumeSlider: {fileID: 1015194892}
 --- !u!1 &1349253241
 GameObject:
   m_ObjectHideFlags: 0
@@ -5404,9 +5443,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1785852134}
+  - component: {fileID: 1785852135}
   m_Layer: 0
   m_Name: AudioManager
-  m_TagString: Untagged
+  m_TagString: AudioManager
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5428,6 +5468,31 @@ Transform:
   - {fileID: 867117030}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1785852135
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1785852133}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a654f6df08aed34ab6489837da559ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MusicSource: {fileID: 808439785}
+  SFXSource: {fileID: 867117031}
+  MouseClick: {fileID: 8300000, guid: e7eafb5f298ce104490bc542d964f6ae, type: 3}
+  FoxSound: {fileID: 8300000, guid: 3e5a8df2d7f27f6418361aeed6a1967c, type: 3}
+  CrowSound: {fileID: 8300000, guid: 0c5da711d41830942b9eecd6bf3551f9, type: 3}
+  Pause: {fileID: 8300000, guid: 567552bd650e8c3418cf560482928321, type: 3}
+  Jump: {fileID: 8300000, guid: 1bf05fde458a3a8479307fb2acdfbc68, type: 3}
+  wingsFlap: {fileID: 8300000, guid: 8681ccdd8a69cab4ea5a345e0f8a00d8, type: 3}
+  Lever: {fileID: 8300000, guid: eec5fd04078f8b14b88107b74ea21ce4, type: 3}
+  DoorOpen: {fileID: 8300000, guid: cbd04c8663717e844b9fe641c05aaba7, type: 3}
+  Buttton: {fileID: 8300000, guid: 6e6bdc36f47eb8041a35491f468a5775, type: 3}
+  pipe: {fileID: 8300000, guid: ce711c9ef578d4340a5cf8daf8887b45, type: 3}
+  trashsound: {fileID: 8300000, guid: 43cfa00ac6e77cc4eba58e7ce5625368, type: 3}
 --- !u!1 &1853013027
 GameObject:
   m_ObjectHideFlags: 0

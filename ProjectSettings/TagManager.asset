@@ -8,6 +8,7 @@ TagManager:
   - Ground
   - Fox
   - Crow
+  - AudioManager
   layers:
   - Default
   - TransparentFX

@@ -13,10 +13,11 @@ public class VolumeManager : MonoBehaviour
         
         if(PlayerPrefs.HasKey("value"))
         {
+            // PlayerPrefs.SetFloat("value", 0.2f);
             Debug.Log("There is a key");
             load();
         } else {
-            PlayerPrefs.SetFloat("value", 1);
+            PlayerPrefs.SetFloat("value", 1f);
             load();
         }
         
