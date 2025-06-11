@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class RotatorScript : MonoBehaviour
 {
+    public Transform RotatorTransform;
     public PlayerSwitch PS;
     //public List<GameObject> RotatorList; //I ended up not using this
     //public float rotationSpeed = 100f;
@@ -14,7 +15,7 @@ public class RotatorScript : MonoBehaviour
     private bool rotationControl = true;
     public List<GameObject> DoorsHold;
     public int HowManyDoorsHold;
-    public List<GameObject> DoorsToggle;
+    public List<GameObject> Boxes;
     public int HowManyDoorsToggle;
 
     //void Update()
@@ -28,7 +29,7 @@ public class RotatorScript : MonoBehaviour
         {
             GameRotateLeft();
         }
-        else if (Input.GetKeyDown(KeyCode.V))
+        if (Input.GetKeyDown(KeyCode.V))
         {
             GameRotateRight();
         }
@@ -64,26 +65,26 @@ public class RotatorScript : MonoBehaviour
         {
             rotationControl = false; // stop spam
             turnControlOff();
-            if (transform.eulerAngles.z == 0) // check current angle and rotate it, yes this is not optimal, im too lazy
+            if (RotatorTransform.eulerAngles.z == 0) // check current angle and rotate it, yes this is not optimal, im too lazy
             {
-                transform.rotation = Quaternion.Euler(0, 0, 90); 
+                RotatorTransform.rotation = Quaternion.Euler(0, 0, 90); 
             }
-            else if (transform.eulerAngles.z == 90)
+            else if (RotatorTransform.eulerAngles.z == 90)
             {
-                transform.rotation = Quaternion.Euler(0, 0, 180);
+                RotatorTransform.rotation = Quaternion.Euler(0, 0, 180);
             }
-            else if (transform.eulerAngles.z == 180)
+            else if (RotatorTransform.eulerAngles.z == 180)
             {
-                transform.rotation = Quaternion.Euler(0, 0, 270);
+                RotatorTransform.rotation = Quaternion.Euler(0, 0, 270);
             }
             else
             {
-                transform.rotation = Quaternion.Euler(0, 0, 0);
+                RotatorTransform.rotation = Quaternion.Euler(0, 0, 0);
             }
             Fox.transform.rotation = Quaternion.Euler(0, 0, 0); // due to this 3 need to be foldered to join the rotation, they need to be rotated back to 0
             Crow.transform.rotation = Quaternion.Euler(0, 0, 0);
             _camera.transform.rotation = Quaternion.Euler(0, 0, 0);
-            updatethedoorcoord();
+            // updatethedoorcoord();
         }
     }
 
@@ -93,208 +94,26 @@ public class RotatorScript : MonoBehaviour
         {
             rotationControl = false; // stop spam
             turnControlOff();
-            if (transform.eulerAngles.z == 0) // check current angle and rotate it, yes this is not optimal, im too lazy
+            if (RotatorTransform.eulerAngles.z == 0) // check current angle and rotate it, yes this is not optimal, im too lazy
             {
-                transform.rotation = Quaternion.Euler(0, 0, 270); 
+                RotatorTransform.rotation = Quaternion.Euler(0, 0, 270); 
             }
-            else if (transform.eulerAngles.z == 270)
+            else if (RotatorTransform.eulerAngles.z == 270)
             {
-                transform.rotation = Quaternion.Euler(0, 0, 180);
+                RotatorTransform.rotation = Quaternion.Euler(0, 0, 180);
             }
-            else if (transform.eulerAngles.z == 180)
+            else if (RotatorTransform.eulerAngles.z == 180)
             {
-                transform.rotation = Quaternion.Euler(0, 0, 90);
+                RotatorTransform.rotation = Quaternion.Euler(0, 0, 90);
             }
             else
             {
-                transform.rotation = Quaternion.Euler(0, 0, 0);
+                RotatorTransform.rotation = Quaternion.Euler(0, 0, 0);
             }
             Fox.transform.rotation = Quaternion.Euler(0, 0, 0); // due to this 3 need to be foldered to join the rotation, they need to be rotated back to 0
             Crow.transform.rotation = Quaternion.Euler(0, 0, 0);
             _camera.transform.rotation = Quaternion.Euler(0, 0, 0);
-            updatethedoorcoord();
-        }
-    }
-
-    private void updatethedoorcoord ()
-    {
-        for (int i = 0; i < HowManyDoorsHold; i++)
-        {
-            if (DoorsHold[i].GetComponent<DoorHold>().isOpen && DoorsHold[i].GetComponent<DoorHold>().isSideWay)
-            {
-                if (transform.eulerAngles.z == 0) // check current angle and rotate it, yes this is not optimal, im too lazy
-                {
-                    DoorsHold[i].GetComponent<DoorHold>().InitialPos = new Vector3(DoorsHold[i].transform.position.x + 3, DoorsHold[i].transform.position.y, DoorsHold[i].transform.position.z);
-                    DoorsHold[i].GetComponent<DoorHold>().offsetPosHold = new Vector3(-3, 0, 0);
-                }
-                else if (transform.eulerAngles.z == 90)
-                {
-                    DoorsHold[i].GetComponent<DoorHold>().InitialPos = new Vector3(DoorsHold[i].transform.position.x, DoorsHold[i].transform.position.y + 3, DoorsHold[i].transform.position.z);
-                    DoorsHold[i].GetComponent<DoorHold>().offsetPosHold = new Vector3(0, -3, 0);
-                }
-                else if (transform.eulerAngles.z == 180)
-                {
-                    DoorsHold[i].GetComponent<DoorHold>().InitialPos = new Vector3(DoorsHold[i].transform.position.x - 3, DoorsHold[i].transform.position.y, DoorsHold[i].transform.position.z);
-                    DoorsHold[i].GetComponent<DoorHold>().offsetPosHold = new Vector3(3, 0, 0);
-                }
-                else
-                {
-                    DoorsHold[i].GetComponent<DoorHold>().InitialPos = new Vector3(DoorsHold[i].transform.position.x, DoorsHold[i].transform.position.y - 3, DoorsHold[i].transform.position.z);
-                    DoorsHold[i].GetComponent<DoorHold>().offsetPosHold = new Vector3(0, 3, 0);
-                }
-            }
-            else if (!DoorsHold[i].GetComponent<DoorHold>().isOpen && DoorsHold[i].GetComponent<DoorHold>().isSideWay)
-            {
-                DoorsHold[i].GetComponent<DoorHold>().InitialPos = DoorsHold[i].transform.position;
-                if (transform.eulerAngles.z == 0) // check current angle and rotate it, yes this is not optimal, im too lazy
-                {
-                    DoorsHold[i].GetComponent<DoorHold>().offsetPosHold = new Vector3(-3, 0, 0);
-                }
-                else if (transform.eulerAngles.z == 90)
-                {
-                    DoorsHold[i].GetComponent<DoorHold>().offsetPosHold = new Vector3(0, -3, 0);
-                }
-                else if (transform.eulerAngles.z == 180)
-                {
-                    DoorsHold[i].GetComponent<DoorHold>().offsetPosHold = new Vector3(3, 0, 0);
-                }
-                else
-                {
-                    DoorsHold[i].GetComponent<DoorHold>().offsetPosHold = new Vector3(0, 3, 0);
-                }
-            }
-            else if (DoorsHold[i].GetComponent<DoorHold>().isOpen && !DoorsHold[i].GetComponent<DoorHold>().isSideWay)
-            {
-                if (transform.eulerAngles.z == 0) // check current angle and rotate it, yes this is not optimal, im too lazy
-                {
-                    DoorsHold[i].GetComponent<DoorHold>().InitialPos = new Vector3(DoorsHold[i].transform.position.x, DoorsHold[i].transform.position.y - 3, DoorsHold[i].transform.position.z);
-                    DoorsHold[i].GetComponent<DoorHold>().offsetPosHold = new Vector3(0, 3, 0);
-                }
-                else if (transform.eulerAngles.z == 90)
-                {
-                    DoorsHold[i].GetComponent<DoorHold>().InitialPos = new Vector3(DoorsHold[i].transform.position.x + 3, DoorsHold[i].transform.position.y, DoorsHold[i].transform.position.z);
-                    DoorsHold[i].GetComponent<DoorHold>().offsetPosHold = new Vector3(-3, 0, 0);
-                }
-                else if (transform.eulerAngles.z == 180)
-                {
-                    DoorsHold[i].GetComponent<DoorHold>().InitialPos = new Vector3(DoorsHold[i].transform.position.x, DoorsHold[i].transform.position.y + 3, DoorsHold[i].transform.position.z);
-                    DoorsHold[i].GetComponent<DoorHold>().offsetPosHold = new Vector3(0, -3, 0);
-                }
-                else
-                {
-                    DoorsHold[i].GetComponent<DoorHold>().InitialPos = new Vector3(DoorsHold[i].transform.position.x - 3, DoorsHold[i].transform.position.y, DoorsHold[i].transform.position.z);
-                    DoorsHold[i].GetComponent<DoorHold>().offsetPosHold = new Vector3(3, 0, 0);
-                }
-            }
-            else
-            {
-                DoorsHold[i].GetComponent<DoorHold>().InitialPos = DoorsHold[i].transform.position;
-                if (transform.eulerAngles.z == 0) // check current angle and rotate it, yes this is not optimal, im too lazy
-                {
-                    DoorsHold[i].GetComponent<DoorHold>().offsetPosHold = new Vector3(0, 3, 0);
-                }
-                else if (transform.eulerAngles.z == 90)
-                {
-                    DoorsHold[i].GetComponent<DoorHold>().offsetPosHold = new Vector3(-3, 0, 0);
-                }
-                else if (transform.eulerAngles.z == 180)
-                {
-                    DoorsHold[i].GetComponent<DoorHold>().offsetPosHold = new Vector3(0, -3, 0);
-                }
-                else
-                {
-                    DoorsHold[i].GetComponent<DoorHold>().offsetPosHold = new Vector3(3, 0, 0);
-                }
-            }
-        }
-        for (int i = 0; i < HowManyDoorsToggle; i++)
-        {
-            if (DoorsToggle[i].GetComponent<DoorToggle>().isOpen && DoorsToggle[i].GetComponent<DoorToggle>().isSideWay)
-            {
-                if (transform.eulerAngles.z == 0) // check current angle and rotate it, yes this is not optimal, im too lazy
-                {
-                    DoorsToggle[i].GetComponent<DoorToggle>().initialPos = new Vector3(DoorsToggle[i].transform.position.x + 3, DoorsToggle[i].transform.position.y, DoorsToggle[i].transform.position.z);
-                    DoorsToggle[i].GetComponent<DoorToggle>().offsetPos = new Vector3(-3, 0, 0);
-                }
-                else if (transform.eulerAngles.z == 90)
-                {
-                    DoorsToggle[i].GetComponent<DoorToggle>().initialPos = new Vector3(DoorsToggle[i].transform.position.x, DoorsToggle[i].transform.position.y + 3, DoorsToggle[i].transform.position.z);
-                    DoorsToggle[i].GetComponent<DoorToggle>().offsetPos = new Vector3(0, -3, 0);
-                }
-                else if (transform.eulerAngles.z == 180)
-                {
-                    DoorsToggle[i].GetComponent<DoorToggle>().initialPos = new Vector3(DoorsToggle[i].transform.position.x - 3, DoorsToggle[i].transform.position.y, DoorsToggle[i].transform.position.z);
-                    DoorsToggle[i].GetComponent<DoorToggle>().offsetPos = new Vector3(3, 0, 0);
-                }
-                else
-                {
-                    DoorsToggle[i].GetComponent<DoorToggle>().initialPos = new Vector3(DoorsToggle[i].transform.position.x, DoorsToggle[i].transform.position.y - 3, DoorsToggle[i].transform.position.z);
-                    DoorsToggle[i].GetComponent<DoorToggle>().offsetPos = new Vector3(0, 3, 0);
-                }
-            }
-            else if (!DoorsToggle[i].GetComponent<DoorToggle>().isOpen && DoorsToggle[i].GetComponent<DoorToggle>().isSideWay)
-            {
-                DoorsToggle[i].GetComponent<DoorToggle>().initialPos = DoorsToggle[i].transform.position;
-                if (transform.eulerAngles.z == 0) // check current angle and rotate it, yes this is not optimal, im too lazy
-                {
-                    DoorsToggle[i].GetComponent<DoorToggle>().offsetPos = new Vector3(3, 0, 0);
-                }
-                else if (transform.eulerAngles.z == 90)
-                {
-                    DoorsToggle[i].GetComponent<DoorToggle>().offsetPos = new Vector3(0, -3, 0);
-                }
-                else if (transform.eulerAngles.z == 180)
-                {
-                    DoorsToggle[i].GetComponent<DoorToggle>().offsetPos = new Vector3(3, 0, 0);
-                }
-                else
-                {
-                    DoorsToggle[i].GetComponent<DoorToggle>().offsetPos = new Vector3(0, 3, 0);
-                }
-            }
-            else if (DoorsToggle[i].GetComponent<DoorToggle>().isOpen && DoorsToggle[i].GetComponent<DoorToggle>().isSideWay)
-            {
-                if (transform.eulerAngles.z == 0) // check current angle and rotate it, yes this is not optimal, im too lazy
-                {
-                    DoorsToggle[i].GetComponent<DoorToggle>().initialPos = new Vector3(DoorsToggle[i].transform.position.x, DoorsToggle[i].transform.position.y - 3, DoorsToggle[i].transform.position.z);
-                    DoorsToggle[i].GetComponent<DoorToggle>().offsetPos = new Vector3(0, 3, 0);
-                }
-                else if (transform.eulerAngles.z == 90)
-                {
-                    DoorsToggle[i].GetComponent<DoorToggle>().initialPos = new Vector3(DoorsToggle[i].transform.position.x + 3, DoorsToggle[i].transform.position.y, DoorsToggle[i].transform.position.z);
-                    DoorsToggle[i].GetComponent<DoorToggle>().offsetPos = new Vector3(-3, 0, 0);
-                }
-                else if (transform.eulerAngles.z == 180)
-                {
-                    DoorsToggle[i].GetComponent<DoorToggle>().initialPos = new Vector3(DoorsToggle[i].transform.position.x, DoorsToggle[i].transform.position.y + 3, DoorsToggle[i].transform.position.z);
-                    DoorsToggle[i].GetComponent<DoorToggle>().offsetPos = new Vector3(0, -3, 0);
-                }
-                else
-                {
-                    DoorsToggle[i].GetComponent<DoorToggle>().initialPos = new Vector3(DoorsToggle[i].transform.position.x - 3, DoorsToggle[i].transform.position.y, DoorsToggle[i].transform.position.z);
-                    DoorsToggle[i].GetComponent<DoorToggle>().offsetPos = new Vector3(3, 0, 0);
-                }
-            }
-            else 
-            {
-                DoorsToggle[i].GetComponent<DoorToggle>().initialPos = DoorsToggle[i].transform.position;
-                if (transform.eulerAngles.z == 0) // check current angle and rotate it, yes this is not optimal, im too lazy
-                {
-                    DoorsToggle[i].GetComponent<DoorToggle>().offsetPos = new Vector3(0, 3, 0);
-                }
-                else if (transform.eulerAngles.z == 90)
-                {
-                    DoorsToggle[i].GetComponent<DoorToggle>().offsetPos = new Vector3(-3, 0, 0);
-                }
-                else if (transform.eulerAngles.z == 180)
-                {
-                    DoorsToggle[i].GetComponent<DoorToggle>().offsetPos = new Vector3(0, -3, 0);
-                }
-                else
-                {
-                    DoorsToggle[i].GetComponent<DoorToggle>().offsetPos = new Vector3(3, 0, 0);
-                }
-            }
+            // updatethedoorcoord();
         }
     }
 }

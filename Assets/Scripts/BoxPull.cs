@@ -22,6 +22,17 @@ public class BoxPull : MonoBehaviour
         {
             Debug.LogError("EKeyPrompt is not assigned in BoxPull script on " + gameObject.name);
         }
+
+        if(!beingPushed)
+        {
+            // Freeze X movement to keep the box stationary
+            // rb.constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezeRotation;
+        }
+        else
+        {
+            // Unfreeze X movement when being pushed
+            // rb.constraints = RigidbodyConstraints2D.FreezeRotation;
+        }
     }
 
     // Update is called once per frame
@@ -30,8 +41,8 @@ public class BoxPull : MonoBehaviour
         if (!beingPushed)
         {
             // Freeze X movement to keep the box stationary
-            // rb.constraints = RigidbodyConstraints2D.FreezePositionX;
             rb.constraints = RigidbodyConstraints2D.FreezePositionX;
+            // rb.constraints = RigidbodyConstraints2D.FreezePositionX;
         }
         else
         {

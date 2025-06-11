@@ -268,7 +268,7 @@ Rigidbody2D:
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 1
-  m_Material: {fileID: 6200000, guid: c900a3f0e1e8adf4cbba6aa745aa92c3, type: 2}
+  m_Material: {fileID: 6200000, guid: 3b8e2a31910126f4b8ecfc7b8fe1fa3b, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -312,7 +312,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   beingPushed: 0
   EKeyPrompt: {fileID: 6383848661701366804}
-  SideTriggerCollider: {fileID: 2432195377471214940}
+  SidetriggerCollider: {fileID: 0}
   TopTriggerCollider: {fileID: 6388115986193699837}
 --- !u!61 &5038681531260614861
 BoxCollider2D:

@@ -25,7 +25,7 @@ public class DoorToggle : MonoBehaviour
 
     void Start()
     {
-        initialPos = transform.position;
+        initialPos = transform.localPosition;;
         // closedposToggle = transform.position;
         // openPosToggle = closedposToggle + new Vector3(0, 3f, 0); // Example offset for open position
     }
@@ -34,14 +34,15 @@ public class DoorToggle : MonoBehaviour
     {
         Vector3 targetPosition = initialPos + desiredPos;
 
-        transform.position = Vector3.MoveTowards(transform.position, targetPosition, speed * Time.deltaTime);
+        transform.localPosition = Vector3.MoveTowards(transform.localPosition, targetPosition, speed * Time.deltaTime);
     }
+    [ContextMenu("OpenDoor")]
     public void OpenDoor()
     {
         Debug.Log("Open Door");
         desiredPos = offsetPos;
     }
-
+    [ContextMenu("CloseDoor")]
     public void CloseDoor()
     {
         Debug.Log("Close Door");

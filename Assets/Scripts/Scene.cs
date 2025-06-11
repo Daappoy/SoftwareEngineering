@@ -19,6 +19,7 @@ public class Scene : MonoBehaviour
     public void LoadScene(string sceneName)
     {
         SceneManager.LoadScene(sceneName);
+        Time.timeScale = 1f; // Ensure the game is unpaused when loading a new scene
     }
 
     public void LevelMenu()

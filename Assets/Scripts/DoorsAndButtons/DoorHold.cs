@@ -25,7 +25,7 @@ public class DoorHold : MonoBehaviour
     public bool isSideWay;
     void Start()
     {
-        InitialPos = transform.position;
+        InitialPos = transform.localPosition;
         ButtonHold[] buttons = FindObjectsOfType<ButtonHold>();
         foreach (ButtonHold b in buttons)
         {
@@ -57,14 +57,14 @@ public class DoorHold : MonoBehaviour
     {
         if(buttonHold.isHolding == true)
         {
-            transform.position = Vector3.MoveTowards(transform.position, targetposition, speed * Time.deltaTime);
+            transform.localPosition = Vector3.MoveTowards(transform.localPosition, targetposition, speed * Time.deltaTime);
         }
     }
     public void CloseDoorHold()
     {
         if(buttonHold.isHolding == false)
         {
-            transform.position = Vector3.MoveTowards(transform.position, targetposition, speed * Time.deltaTime);
+            transform.localPosition = Vector3.MoveTowards(transform.localPosition, targetposition, speed * Time.deltaTime);
         }
     }
 }

@@ -36,18 +36,19 @@ public class ButtonToggle : MonoBehaviour
             if (isOpen == false)
             {
                 GetComponent<SpriteRenderer>().sprite = LeverOnSprite;
+
                 LeverOn?.Invoke();
                 isOpen = true;
                 door.isOpen = true;
             }
-            else if(isOpen == true)
+            else if (isOpen == true)
             {
                 GetComponent<SpriteRenderer>().sprite = LeverOffSprite;
                 LeverOff?.Invoke();
                 isOpen = false;
                 door.isOpen = false;
             }
-            
+
         }
     }
 }
