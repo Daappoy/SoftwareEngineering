@@ -7,6 +7,7 @@ public class MenuManager : MonoBehaviour
     public GameObject levels;
 
     private GameObject[] menus;
+    public AudioManager audioManager;
 
     private void Start()
     {
