@@ -12,8 +12,7 @@ public class FoxScript : MonoBehaviour
     // private bool IsWallSliding = false;
     private bool IsWallJumping = false;
     // private float WallJumpingDirection;
-    private bool IsFacingRight = true;
-
+    public bool IsFacingRight = true;
     public bool InputEnabled = true;
 
 
@@ -146,23 +145,27 @@ public class FoxScript : MonoBehaviour
             {
                 FoxRb.velocity = new Vector2(FoxRb.velocity.x, jumpingPower);
             }
-            if (Input.GetKeyDown(KeyCode.Space) && !isPushingOrPulling && !isGrounded && isWalled && IsFacingRight)
-            {
-                FoxRb.velocity = new Vector2(-WallJumpingPower.x, WallJumpingPower.y);
-                IsWallJumping = true;
-                WallJumpCounter = WallJumpingTime;
-                wallJumpCount++;
-                Invoke(nameof(StopWallJumping), WallJumpDuration);
 
-            }
-            else if (Input.GetKeyDown(KeyCode.Space) && !isPushingOrPulling && !isGrounded && isWalled && !IsFacingRight)
+            if (Input.GetKeyDown(KeyCode.Space)&& !isPushingOrPulling && !isGrounded && isWalled && isJumping)
             {
-                FoxRb.velocity = new Vector2(WallJumpingPower.x, WallJumpingPower.y);
-                IsWallJumping = true;
-                WallJumpCounter = WallJumpingTime;
-                wallJumpCount++;
-                Invoke(nameof(StopWallJumping), WallJumpDuration);
-
+                if (IsFacingRight)
+                {
+                    FoxRb.velocity = new Vector2(-WallJumpingPower.x, WallJumpingPower.y);
+                    IsWallJumping = true;
+                    WallJumpCounter = WallJumpingTime;
+                    wallJumpCount++;
+                    Flip();
+                    Invoke(nameof(StopWallJumping), WallJumpDuration);
+                }
+                else if (!IsFacingRight)
+                {
+                    FoxRb.velocity = new Vector2(WallJumpingPower.x, WallJumpingPower.y);
+                    IsWallJumping = true;
+                    WallJumpCounter = WallJumpingTime;
+                    wallJumpCount++;
+                    Flip();
+                    Invoke(nameof(StopWallJumping), WallJumpDuration);
+                }
             }
         }
     }
@@ -174,6 +177,7 @@ public class FoxScript : MonoBehaviour
 
     private void Flip()
     {
+        
         // Flip character when changing direction
         if (IsFacingRight && Horizontal < 0f || !IsFacingRight && Horizontal > 0f)
         {
