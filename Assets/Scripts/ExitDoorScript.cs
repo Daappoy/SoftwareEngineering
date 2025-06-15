@@ -11,8 +11,11 @@ public class ExitDoorScript : MonoBehaviour
 
     public PlayerSwitch playerSwitchScript; // Reference to the AttachController script
     public bool isAttached => playerSwitchScript.isAttached; // Property to check if the crow is attached to the fox
+    public AudioManager audioManager;
+
     void Start()
     {
+        audioManager = GameObject.FindGameObjectWithTag("AudioManager").GetComponent<AudioManager>();
         LevelCompleteUI.SetActive(false); // Hide the level complete UI initially
         EKeyPrompt.SetActive(false); // Hide the prompt initially
         if (EKeyPrompt == null)
@@ -32,6 +35,7 @@ public class ExitDoorScript : MonoBehaviour
             LevelCompleteUI.SetActive(true); // Show the level complete UI
             Time.timeScale = 0f; // Pause the game
             EKeyPrompt.SetActive(false); // Hide the prompt after interaction
+
         }
         else if (playerInTrigger && Input.GetKeyDown(KeyCode.E) && playerCollider != null && !isAttached)
         {

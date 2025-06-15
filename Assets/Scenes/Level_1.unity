@@ -920,6 +920,8 @@ MonoBehaviour:
   Buttton: {fileID: 8300000, guid: 6e6bdc36f47eb8041a35491f468a5775, type: 3}
   pipe: {fileID: 8300000, guid: ce711c9ef578d4340a5cf8daf8887b45, type: 3}
   trashsound: {fileID: 8300000, guid: 43cfa00ac6e77cc4eba58e7ce5625368, type: 3}
+  Victory: {fileID: 8300000, guid: a5ccd35b696f7284491327ef197bd097, type: 3}
+  FoxFootSteps: {fileID: 8300000, guid: 64a0a40fc9add0a459bda0d70b1e607f, type: 3}
 --- !u!4 &441348323
 Transform:
   m_ObjectHideFlags: 0

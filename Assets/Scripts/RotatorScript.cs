@@ -7,8 +7,6 @@ public class RotatorScript : MonoBehaviour
 {
     public Transform RotatorTransform;
     public PlayerSwitch PS;
-    //public List<GameObject> RotatorList; //I ended up not using this
-    //public float rotationSpeed = 100f;
     public Camera _camera;
     public GameObject Fox;
     public GameObject Crow;
@@ -18,12 +16,9 @@ public class RotatorScript : MonoBehaviour
     public List<GameObject> Boxes;
     public int HowManyDoorsToggle;
 
-    //void Update()
-    //{
-    //    transform.Rotate(Vector3.forward, rotationSpeed * Time.deltaTime);
-    //}
+    
 
-    private void Update() // get input from C or V, if you want to change this, go ahead, but do tell me
+    private void Update() // Get input from C or V, if you want to change this, go ahead, but do tell me
     {
         if (Input.GetKeyDown(KeyCode.C))
         {
@@ -36,19 +31,19 @@ public class RotatorScript : MonoBehaviour
         
     }
 
-    private void turnControlOff () // method to turn off all inputs from the player to stop spams
+    private void turnControlOff () // Method to turn off all inputs from the player to stop spams
     {
         PS.FoxController.InputEnabled = false; // PS is PlayerSwitch
         PS.CrowController.CrowInputEnabled = false;
         PS.enabled = false;
-        StartCoroutine(turnControlOn()); Debug.Log("off"); // this calls to turn it back on automaticlly after a time gap
+        StartCoroutine(turnControlOn()); Debug.Log("off"); // This calls to turn it back on automaticlly after a time gap
     }
 
-    private IEnumerator turnControlOn () // method to turn on all input back, theorethicaly, no deep test has been done
+    private IEnumerator turnControlOn () // Method to turn on all input back, theorethicaly, no deep test has been done
     {
         yield return new WaitForSecondsRealtime(2.0f); // I set time as a gap before next input, the float here is how many second the time of the gap
         PS.enabled = true;
-        if (PS.isFox) // this checks which on is the current active charc
+        if (PS.isFox) // This checks which one is the current active charc
         {
             PS.FoxController.InputEnabled = true;
         }
@@ -56,16 +51,16 @@ public class RotatorScript : MonoBehaviour
         {
             PS.CrowController.CrowInputEnabled = true;
         }
-        rotationControl = true; // not sure if I should put this after or before the time gap
+        rotationControl = true; // Not sure if I should put this after or before the time gap
     }
 
-    private void GameRotateLeft () // method for rotating clockwise
+    private void GameRotateLeft () // Method for rotating clockwise
     {
-        if (rotationControl) // check if input for rotation is allowed
+        if (rotationControl) // Check if input for rotation is allowed
         {
-            rotationControl = false; // stop spam
+            rotationControl = false; // Stop spam
             turnControlOff();
-            if (RotatorTransform.eulerAngles.z == 0) // check current angle and rotate it, yes this is not optimal, im too lazy
+            if (RotatorTransform.eulerAngles.z == 0) // Check current angle and rotate it, yes this is not optimal, im too lazy
             {
                 RotatorTransform.rotation = Quaternion.Euler(0, 0, 90); 
             }
@@ -81,20 +76,20 @@ public class RotatorScript : MonoBehaviour
             {
                 RotatorTransform.rotation = Quaternion.Euler(0, 0, 0);
             }
-            Fox.transform.rotation = Quaternion.Euler(0, 0, 0); // due to this 3 need to be foldered to join the rotation, they need to be rotated back to 0
+            Fox.transform.rotation = Quaternion.Euler(0, 0, 0); // Due to this 3 need to be foldered to join the rotation, they need to be rotated back to 0
             Crow.transform.rotation = Quaternion.Euler(0, 0, 0);
             _camera.transform.rotation = Quaternion.Euler(0, 0, 0);
-            // updatethedoorcoord();
+            
         }
     }
 
-    private void GameRotateRight() // method for rotating counter clockwise
+    private void GameRotateRight() // Method for rotating counter clockwise
     {
-        if (rotationControl) // check if input for rotation is allowed
+        if (rotationControl) // Check if input for rotation is allowed
         {
-            rotationControl = false; // stop spam
+            rotationControl = false; // Stop spam
             turnControlOff();
-            if (RotatorTransform.eulerAngles.z == 0) // check current angle and rotate it, yes this is not optimal, im too lazy
+            if (RotatorTransform.eulerAngles.z == 0) // Check current angle and rotate it, yes this is not optimal, im too lazy
             {
                 RotatorTransform.rotation = Quaternion.Euler(0, 0, 270); 
             }
@@ -110,10 +105,10 @@ public class RotatorScript : MonoBehaviour
             {
                 RotatorTransform.rotation = Quaternion.Euler(0, 0, 0);
             }
-            Fox.transform.rotation = Quaternion.Euler(0, 0, 0); // due to this 3 need to be foldered to join the rotation, they need to be rotated back to 0
+            Fox.transform.rotation = Quaternion.Euler(0, 0, 0); // Due to this 3 need to be foldered to join the rotation, they need to be rotated back to 0
             Crow.transform.rotation = Quaternion.Euler(0, 0, 0);
             _camera.transform.rotation = Quaternion.Euler(0, 0, 0);
-            // updatethedoorcoord();
+            
         }
     }
 }

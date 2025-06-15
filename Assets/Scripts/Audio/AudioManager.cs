@@ -22,6 +22,8 @@ public class AudioManager : MonoBehaviour
     public AudioClip Buttton;
     public AudioClip pipe;
     public AudioClip trashsound;
+    public AudioClip Victory;
+    public AudioClip FoxFootSteps;
 
     private void Start()
     {
