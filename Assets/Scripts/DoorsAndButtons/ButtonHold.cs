@@ -18,6 +18,7 @@ public class ButtonHold : MonoBehaviour
     public UnityEvent ButtonOn;
     public UnityEvent ButtonOff;
     public AudioManager audioManager;
+    private bool audioPlaying = false;
 
     void Start()
     {
@@ -33,6 +34,20 @@ public class ButtonHold : MonoBehaviour
         }
     }
 
+    private void OnTriggerEnter2D(Collider2D collision) // stop putting everything in update >_>
+    {
+        if (collision.CompareTag("Player") || collision.CompareTag("Pushable") && doorHold != null)
+        {
+
+            if (audioManager != null && !audioPlaying)
+            {
+                audioManager.PlaySFX(audioManager.Buttton);
+                audioPlaying = true;
+            }
+
+        }
+    }
+
     private void OnTriggerStay2D(Collider2D collision)
     {
         if (collision.CompareTag("Player") || collision.CompareTag("Pushable") && doorHold != null)
@@ -40,10 +55,10 @@ public class ButtonHold : MonoBehaviour
             isHolding = true;
             doorHold.isOpen = true;
             GetComponent<SpriteRenderer>().sprite = ButtonPressed;
-            // if (audioManager != null)
-            // {
-            //     audioManager.PlaySFX(audioManager.Buttton);
-            // }
+            //if (audioManager != null)
+            //{
+            //    audioManager.PlaySFX(audioManager.Buttton);
+            //}
             ButtonOn?.Invoke();
         }
     }
@@ -52,6 +67,10 @@ public class ButtonHold : MonoBehaviour
     {
         if (collision.CompareTag("Player") || collision.CompareTag("Pushable"))
         {
+            if (audioPlaying)
+            {
+                audioPlaying = false;
+            }
             // if (audioManager != null)
             // {
             //     audioManager.PlaySFX(audioManager.Buttton);

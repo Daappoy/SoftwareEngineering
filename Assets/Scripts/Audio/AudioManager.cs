@@ -35,6 +35,12 @@ public class AudioManager : MonoBehaviour
         SFXSource.PlayOneShot(clip);
     }
 
+    public void playMyAudio(AudioClip clipToPlay) // You can't use "Stop" with "PlayOneShot", you have to use "Play"
+    {
+        SFXSource.clip = clipToPlay;
+        SFXSource.Play();
+    }
+
     public void StopSFX(AudioClip clip)
     {
         if (SFXSource.isPlaying && SFXSource.clip == clip)

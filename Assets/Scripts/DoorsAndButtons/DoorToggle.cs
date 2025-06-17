@@ -24,11 +24,13 @@ public class DoorToggle : MonoBehaviour
     public bool isOpen = false;
     public bool isSideWay;
     public AudioManager audioManager;
+    private bool audioPlaying = false;
 
     void Start()
     {
         audioManager = GameObject.FindGameObjectWithTag("AudioManager").GetComponent<AudioManager>();
         initialPos = transform.localPosition;
+       
         // closedposToggle = transform.position;
         // openPosToggle = closedposToggle + new Vector3(0, 3f, 0); // Example offset for open position
     }
@@ -36,21 +38,29 @@ public class DoorToggle : MonoBehaviour
     void Update()
     {
         Vector3 targetPosition = initialPos + desiredPos;
-
+        
         transform.localPosition = Vector3.MoveTowards(transform.localPosition, targetPosition, speed * Time.deltaTime);
 
         // Check if the door is moving
         if (Vector3.Distance(transform.localPosition, targetPosition) > 0.01f)
         {
             isOpen = true;
-            // audioManager.PlaySFX(audioManager.DoorOpen);
+            if (!audioPlaying) // A bool check to stop triggering the audio multiple time
+            {
+                audioManager.playMyAudio(audioManager.DoorOpen);
+                audioPlaying = true;
+            }
             
         }
         else
         {
             isOpen = false;
-            // Optionally, stop the sound if your AudioManager supports it
-            // audioManager.StopSFX(audioManager.DoorOpen);
+            if (audioPlaying)
+            {
+                audioManager.StopSFX(audioManager.DoorOpen);
+                audioPlaying = false;
+            }
+            
         }
     }
     [ContextMenu("OpenDoor")]
