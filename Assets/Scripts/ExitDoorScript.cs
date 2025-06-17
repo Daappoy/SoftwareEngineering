@@ -35,7 +35,8 @@ public class ExitDoorScript : MonoBehaviour
             LevelCompleteUI.SetActive(true); // Show the level complete UI
             Time.timeScale = 0f; // Pause the game
             EKeyPrompt.SetActive(false); // Hide the prompt after interaction
-
+            audioManager.MusicSource.GetComponent<AudioSource>().Stop(); // Stop the main theme
+            audioManager.SFXSource.PlayOneShot(audioManager.Victory, 30f); // Play the victory sound
         }
         else if (playerInTrigger && Input.GetKeyDown(KeyCode.E) && playerCollider != null && !isAttached)
         {
