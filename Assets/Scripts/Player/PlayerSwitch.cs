@@ -24,19 +24,13 @@ public class PlayerSwitch : MonoBehaviour
         {
             FoxController.InputEnabled = false;
             CrowController.CrowInputEnabled = true;
-            if (audioManager != null)
-            {
-                audioManager.PlaySFX(audioManager.CrowSound);
-            }
+            
         }
         else if (isFox == true)
         {
             FoxController.InputEnabled = true;
             CrowController.CrowInputEnabled = false;
-            if (audioManager != null)
-            {
-                audioManager.PlaySFX(audioManager.FoxSound);
-            }
+            
         }
     }
     public void SwitchPlayer()
@@ -46,12 +40,20 @@ public class PlayerSwitch : MonoBehaviour
             // FoxController.enabled = false;
             // CrowController.enabled = true;
             isFox = false;
+            if (audioManager != null)
+            {
+                audioManager.SFXSource.PlayOneShot(audioManager.CrowSound, 20f);
+            }
         }
         else
         {
             // FoxController.enabled = true;
             // CrowController.enabled = false;
             isFox = true;
+            if (audioManager != null)
+            {
+                audioManager.SFXSource.PlayOneShot(audioManager.FoxSound, 15f);
+            }
         }
     }
 }
