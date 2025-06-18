@@ -18,18 +18,18 @@ public class RotatorScript : MonoBehaviour
 
     
 
-    private void Update() // Get input from C or V, if you want to change this, go ahead, but do tell me
-     {
-         if (Input.GetKeyDown(KeyCode.C))
-         {
-             GameRotateLeft();
-        }
-         if (Input.GetKeyDown(KeyCode.V))
-         {
-             GameRotateRight();
-         }
+    //private void Update() // Get input from C or V, if you want to change this, go ahead, but do tell me
+    // {
+    //     if (Input.GetKeyDown(KeyCode.C))
+    //     {
+    //         GameRotateLeft();
+    //    }
+    //     if (Input.GetKeyDown(KeyCode.V))
+    //     {
+    //         GameRotateRight();
+    //     }
         
-     }
+    // }
 
     private void turnControlOff () // Method to turn off all inputs from the player to stop spams
     {

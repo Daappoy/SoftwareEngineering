@@ -23,8 +23,11 @@ public class DoorHold : MonoBehaviour
     [Header("Door State")]
     public bool isOpen = false;
     public bool isSideWay;
+    public AudioManager audioManager;
+    private bool audioPlaying = false;
     void Start()
     {
+        audioManager = GameObject.FindGameObjectWithTag("AudioManager").GetComponent<AudioManager>();
         InitialPos = transform.localPosition;
         ButtonHold[] buttons = FindObjectsOfType<ButtonHold>();
         foreach (ButtonHold b in buttons)
@@ -44,12 +47,22 @@ public class DoorHold : MonoBehaviour
         {
             DesiredPos = offsetPosHold; // Set the desired position to the offset when holding
             OpenDoorHold();
+            if (!audioPlaying) // A bool check to stop triggering the audio multiple time
+            {
+                audioManager.playMyAudio(audioManager.DoorOpen);
+                audioPlaying = true;
+            }
         }
         else
         {
             DesiredPos = Vector3.zero; // Reset the desired position when not holding
             targetposition = InitialPos; // Reset target position to initial position
             CloseDoorHold();
+            if (audioPlaying)
+            {
+                audioManager.StopSFX(audioManager.DoorOpen);
+                audioPlaying = false;
+            }
         }
     }
 
