@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
 public class RotateTrigger : MonoBehaviour
 {
     public PlayerSwitch playerSwitchScript;
@@ -23,11 +23,27 @@ public class RotateTrigger : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Player") && !rotated && playerSwitchScript.isAttached == true)
+        if (collision.CompareTag("Player") && !rotated)
         {
-            rotatorScript.GameRotateLeft();
-            rotated = true;
-            boxCollider2D.enabled = false; // Disable the collider after rotation
+            if (SceneManager.GetActiveScene().name == "Level_1")
+            {
+                rotatorScript.GameRotateLeft();
+                rotated = true;
+                boxCollider2D.enabled = false; // Disable the collider after rotation
+            }
+            else if (SceneManager.GetActiveScene().name == "Level_2")
+            {
+                rotatorScript.GameRotateRight();
+                rotated = true;
+                boxCollider2D.enabled = false; // Disable the collider after rotation
+            } 
+            else if (SceneManager.GetActiveScene().name == "Level_3")
+            {
+                rotatorScript.GameRotateLeft();
+                rotatorScript.GameRotateLeft();
+                rotated = true;
+                boxCollider2D.enabled = false; // Disable the collider after rotation
+            }
         }
     }
 }

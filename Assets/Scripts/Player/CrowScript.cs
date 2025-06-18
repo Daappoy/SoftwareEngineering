@@ -82,11 +82,11 @@ public class CrowScript : MonoBehaviour
                 CrowRb.gravityScale = 1f;
             }
 
-            if(playerSwitchScript.isAttached)
+            if (playerSwitchScript.isAttached)
             {
-                CrowRb.velocity = new Vector2(0f,0f); // Disable crow input when attached to the fox
+                CrowRb.velocity = new Vector2(0f, 0f); // Disable crow input when attached to the fox
             }
-            
+
         }
 
         // Perform a raycast below the player to check for pushable objects
@@ -102,7 +102,7 @@ public class CrowScript : MonoBehaviour
             box.GetComponent<FixedJoint2D>().enabled = true;
             box.GetComponent<BoxPull>().beingPushed = true;
             box.GetComponent<FixedJoint2D>().connectedBody = this.GetComponent<Rigidbody2D>();
-            
+
         }
         else if (Input.GetKeyUp(KeyCode.E) && CrowInputEnabled && hit.collider != null) // When the player releases "E", detach the object by disabling the FixedJoint2D
         {
@@ -118,6 +118,11 @@ public class CrowScript : MonoBehaviour
         else
         {
             isFlying = true; // Set flying state when not grounded
+        }
+
+        if (isGrounded && CrowInputEnabled == false)
+        {
+            CrowRb.velocity = new Vector2(0f, 0f); // Disable crow input when grounded and not attached to the fox
         }
     }
 
