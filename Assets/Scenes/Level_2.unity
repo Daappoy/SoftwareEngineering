@@ -1811,7 +1811,7 @@ AudioSource:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 732334733}
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 24300002, guid: b406e57b29f3e6945b390ca37f39e8ff, type: 2}
   m_audioClip: {fileID: 8300000, guid: 21e3e9403c70c7b42b13d5a38423e071, type: 3}
@@ -109020,7 +109020,7 @@ MonoBehaviour:
   Pause: {fileID: 8300000, guid: 567552bd650e8c3418cf560482928321, type: 3}
   Jump: {fileID: 8300000, guid: 1bf05fde458a3a8479307fb2acdfbc68, type: 3}
   wingsFlap: {fileID: 8300000, guid: 8681ccdd8a69cab4ea5a345e0f8a00d8, type: 3}
-  Lever: {fileID: 8300000, guid: eec5fd04078f8b14b88107b74ea21ce4, type: 3}
+  Lever: {fileID: 8300000, guid: 753f3851dcd1a4d4ebf421740a019fa0, type: 3}
   DoorOpen: {fileID: 8300000, guid: cbd04c8663717e844b9fe641c05aaba7, type: 3}
   Buttton: {fileID: 8300000, guid: 6e6bdc36f47eb8041a35491f468a5775, type: 3}
   pipe: {fileID: 8300000, guid: 06c3dc9269d60a14aa62ec7cad6777e7, type: 3}
