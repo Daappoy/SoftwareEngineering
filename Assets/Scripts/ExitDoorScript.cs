@@ -36,7 +36,7 @@ public class ExitDoorScript : MonoBehaviour
             Time.timeScale = 0f; // Pause the game
             EKeyPrompt.SetActive(false); // Hide the prompt after interaction
             audioManager.MusicSource.GetComponent<AudioSource>().Stop(); // Stop the main theme
-            audioManager.SFXSource.PlayOneShot(audioManager.Victory, 30f); // Play the victory sound
+            audioManager.SFXSource.PlayOneShot(audioManager.Victory, 20f); // Play the victory sound
         }
         else if (playerInTrigger && Input.GetKeyDown(KeyCode.E) && playerCollider != null && !isAttached)
         {

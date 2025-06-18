@@ -42,7 +42,7 @@ public class PlayerSwitch : MonoBehaviour
             isFox = false;
             if (audioManager != null)
             {
-                audioManager.SFXSource.PlayOneShot(audioManager.CrowSound, 0.1f);
+                audioManager.SFXSource.PlayOneShot(audioManager.CrowSound, 5f);
             }
         }
         else
@@ -52,7 +52,7 @@ public class PlayerSwitch : MonoBehaviour
             isFox = true;
             if (audioManager != null)
             {
-                audioManager.SFXSource.PlayOneShot(audioManager.FoxSound, 0.1f);
+                audioManager.SFXSource.PlayOneShot(audioManager.FoxSound, 5f);
             }
         }
     }
