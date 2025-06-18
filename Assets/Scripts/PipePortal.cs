@@ -12,10 +12,12 @@ public class PipePortal : MonoBehaviour
     private Collider2D playerCollider;
     public PlayerSwitch playerSwitchScript; // Reference to the AttachController script
     public bool isAttached => playerSwitchScript.isAttached; // Property to check if the crow is attached to the fox
+    public AudioManager audioManager;
 
 
     private void Start()
     {
+        audioManager = GameObject.FindGameObjectWithTag("AudioManager").GetComponent<AudioManager>();
         FkeyPrompt.SetActive(false);
         if (PortalLinked == null)
         {
@@ -28,6 +30,10 @@ public class PipePortal : MonoBehaviour
         if (playerInTrigger && Input.GetKeyDown(KeyCode.F) && playerCollider != null && !isAttached) //If player is in the interact space and presses F
         {
             playerCollider.transform.position = PortalLinked.transform.position;
+            if (audioManager != null)
+            {
+                audioManager.PlaySFX(audioManager.pipe);
+            }
         }
         else if (playerInTrigger && Input.GetKeyDown(KeyCode.F) && playerCollider != null && isAttached)
         {

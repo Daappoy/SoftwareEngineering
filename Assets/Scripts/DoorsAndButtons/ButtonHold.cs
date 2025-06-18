@@ -67,7 +67,7 @@ public class ButtonHold : MonoBehaviour
     {
         if (collision.CompareTag("Player") || collision.CompareTag("Pushable"))
         {
-            if (audioPlaying)
+            if (audioManager != null && audioPlaying)
             {
                 audioPlaying = false;
             }

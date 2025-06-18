@@ -14,7 +14,8 @@ public class FoxScript : MonoBehaviour
     // private float WallJumpingDirection;
     public bool IsFacingRight = true;
     public bool InputEnabled = true;
-
+    public AudioManager audioManager;
+    
 
     [Header("Player Movement")]
     [SerializeField] private float speed = 8f;
@@ -48,6 +49,11 @@ public class FoxScript : MonoBehaviour
     private void Awake()
     {
         FoxRb = GetComponent<Rigidbody2D>();
+    }
+
+    private void Start()
+    {
+        audioManager = GameObject.FindGameObjectWithTag("AudioManager").GetComponent<AudioManager>();
     }
 
     void Update()
@@ -143,10 +149,11 @@ public class FoxScript : MonoBehaviour
 
             if (Input.GetKeyDown(KeyCode.Space) && !isPushingOrPulling && isGrounded && !isJumping)
             {
+                audioManager.PlaySFX(audioManager.Jump);
                 FoxRb.velocity = new Vector2(FoxRb.velocity.x, jumpingPower);
             }
 
-            if (Input.GetKeyDown(KeyCode.Space)&& !isPushingOrPulling && !isGrounded && isWalled && isJumping)
+            if (Input.GetKeyDown(KeyCode.Space) && !isPushingOrPulling && !isGrounded && isWalled && isJumping)
             {
                 if (IsFacingRight)
                 {
@@ -166,6 +173,7 @@ public class FoxScript : MonoBehaviour
                     Flip();
                     Invoke(nameof(StopWallJumping), WallJumpDuration);
                 }
+                audioManager.PlaySFX(audioManager.Jump);
             }
         }
     }

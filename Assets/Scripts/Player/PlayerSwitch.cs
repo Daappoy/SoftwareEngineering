@@ -6,6 +6,12 @@ public class PlayerSwitch : MonoBehaviour
     public FoxScript FoxController;
     public CrowScript CrowController;
     public bool isFox = true;
+    public AudioManager audioManager;
+
+    private void Start()
+    {
+        audioManager = GameObject.FindGameObjectWithTag("AudioManager").GetComponent<AudioManager>();
+    }
 
     void Update()
     {
@@ -18,11 +24,19 @@ public class PlayerSwitch : MonoBehaviour
         {
             FoxController.InputEnabled = false;
             CrowController.CrowInputEnabled = true;
+            if (audioManager != null)
+            {
+                audioManager.PlaySFX(audioManager.CrowSound);
+            }
         }
         else if (isFox == true)
         {
             FoxController.InputEnabled = true;
             CrowController.CrowInputEnabled = false;
+            if (audioManager != null)
+            {
+                audioManager.PlaySFX(audioManager.FoxSound);
+            }
         }
     }
     public void SwitchPlayer()
