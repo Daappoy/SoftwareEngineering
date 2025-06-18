@@ -15,7 +15,8 @@ public class FoxScript : MonoBehaviour
     public bool IsFacingRight = true;
     public bool InputEnabled = true;
     public AudioManager audioManager;
-    
+
+
 
     [Header("Player Movement")]
     [SerializeField] private float speed = 8f;
@@ -61,7 +62,9 @@ public class FoxScript : MonoBehaviour
         ProcessInputs();
         // Perform a raycast in the direction the player is facing to check for pushable objects
         Physics2D.queriesStartInColliders = false;
-        RaycastHit2D hit = Physics2D.Raycast(transform.localPosition, Vector2.right * transform.localScale.x, distance, InteractMask);
+        Vector2 direction = GetRotatedDirection();
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, direction, distance, InteractMask);
+
 
         // If a pushable object is detected and the player presses "E", attach it to the player using a FixedJoint2D
         if (hit.collider != null && hit.collider.CompareTag("Pushable") && Input.GetKeyDown(KeyCode.E) && InputEnabled)
@@ -214,4 +217,12 @@ public class FoxScript : MonoBehaviour
         Gizmos.color = Color.yellow;
         Gizmos.DrawLine(transform.position, (Vector2)transform.position + Vector2.right * transform.localScale.x * distance);
     }
+
+    private Vector2 GetRotatedDirection()
+    {
+        return IsFacingRight ? Vector2.right : Vector2.left;
+    }
+
+
+
 }
