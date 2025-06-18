@@ -18,18 +18,18 @@ public class RotatorScript : MonoBehaviour
 
     
 
-    private void Update() // Get input from C or V, if you want to change this, go ahead, but do tell me
-    {
-        if (Input.GetKeyDown(KeyCode.C))
-        {
-            GameRotateLeft();
-        }
-        if (Input.GetKeyDown(KeyCode.V))
-        {
-            GameRotateRight();
-        }
+    // private void Update() // Get input from C or V, if you want to change this, go ahead, but do tell me
+    // {
+    //     if (Input.GetKeyDown(KeyCode.C))
+    //     {
+    //         GameRotateLeft();
+    //     }
+    //     if (Input.GetKeyDown(KeyCode.V))
+    //     {
+    //         GameRotateRight();
+    //     }
         
-    }
+    // }
 
     private void turnControlOff () // Method to turn off all inputs from the player to stop spams
     {
@@ -54,7 +54,7 @@ public class RotatorScript : MonoBehaviour
         rotationControl = true; // Not sure if I should put this after or before the time gap
     }
 
-    private void GameRotateLeft () // Method for rotating clockwise
+    public void GameRotateLeft () // Method for rotating clockwise
     {
         if (rotationControl) // Check if input for rotation is allowed
         {
@@ -83,7 +83,7 @@ public class RotatorScript : MonoBehaviour
         }
     }
 
-    private void GameRotateRight() // Method for rotating counter clockwise
+    public void GameRotateRight() // Method for rotating counter clockwise
     {
         if (rotationControl) // Check if input for rotation is allowed
         {
