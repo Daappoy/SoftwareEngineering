@@ -152,7 +152,7 @@ public class FoxScript : MonoBehaviour
 
             if (Input.GetKeyDown(KeyCode.Space) && !isPushingOrPulling && isGrounded && !isJumping)
             {
-                audioManager.PlaySFX(audioManager.Jump);
+                //audioManager.PlaySFX(audioManager.Jump); // volume and audio kinda messed up
                 FoxRb.velocity = new Vector2(FoxRb.velocity.x, jumpingPower);
             }
 
