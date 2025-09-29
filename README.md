@@ -66,11 +66,11 @@ game is finished
 
 The following controls are bound in-game, for gameplay and testing.
 
-| Key Binding       | Function          |
-| ----------------- | ----------------- |
-| W,A,S,D           | Standard movement |
-| spacebar          | jump              |
-| E                 | Interact          |
-| Q                 | switch character  |
+| Key Binding       | Function                |
+| ----------------- | ----------------------- |
+| W,D               | left and right movement |
+| spacebar          | jump                    |
+| E                 | Interact                |
+| Q                 | switch character        |
 
 <br>
