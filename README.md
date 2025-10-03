@@ -1,10 +1,10 @@
 <table>
   <tr>
     <td align="left" width="50%">
-      <!-- <img width="100%" alt="gif1" src="https://github.com/user-attachments/assets/a01eef8e-4281-4a45-ba5e-da38af4e47fb"> -->
+      <img width="100%" alt="gif1" src="https://github.com/Daappoy/SoftwareEngineering/blob/main/Assets/GIFS/Fox.gif">
     </td>
     <td align="right" width="50%">
-      <!-- <img width="100%" alt="gif2" src="https://github.com/user-attachments/assets/f96b78ce-3f23-4b2e-a17f-c7c1581d5cf5"> -->
+      <img width="100%" alt="gif2" src="https://github.com/Daappoy/SoftwareEngineering/blob/main/Assets/GIFS/Crow.gif">
     </td>
   </tr>
 </table>
