@@ -4,7 +4,7 @@
       <img width="100%" alt="gif1" src="https://github.com/Daappoy/SoftwareEngineering/blob/main/Assets/GIFS/Fox.gif">
     </td>
     <td align="right" width="50%">
-      <img width="100%" alt="gif2" src="https://github.com/Daappoy/SoftwareEngineering/blob/main/Assets/GIFS/Fox.gif">
+      <img width="100%" alt="gif2" src="https://github.com/Daappoy/SoftwareEngineering/blob/main/Assets/GIFS/Crow.gif">
     </td>
   </tr>
 </table>
